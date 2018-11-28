@@ -50,6 +50,7 @@ export class MapArcgisComponent implements OnInit {
   private _center: Array<number> = [-6.175, 106.825];
   private _basemap: string = 'streets';
   private _webmap: string = "a762c0e234a94af99cf8c2a0c835f7d4";
+  private coordinate: number[] = [null, null]
 
   @Input()
   set zoom(zoom: number) {
@@ -91,19 +92,20 @@ export class MapArcgisComponent implements OnInit {
 
   async initializeMap() {
     try {
-      const [EsriMapView, EsriWebMap, EsriConfig] = await loadModules([
+      const [EsriMapView, EsriWebMap, EsriConfig, EsriWebMercator] = await loadModules([
         'esri/views/MapView',
         'esri/WebMap',
-        'esri/config'
+        'esri/config',
+        'esri/geometry/support/webMercatorUtils'
       ]);
 
-      // const esriConfig: esri.config = EsriConfig
+      const esriConfig: esri.config = EsriConfig
 
-      // esriConfig.portalUrl = "http://jakartasatu.jakarta.go.id/portal"
+      esriConfig.portalUrl = "http://jakartasatu.jakarta.go.id/portal"
 
       const webmapProperties: esri.WebMapProperties = {
         portalItem: { 
-          id: "f2e9b762544945f390ca4ac3671cfa72",
+          id: this._webmap,
         }
       }
 
@@ -131,7 +133,18 @@ export class MapArcgisComponent implements OnInit {
 
       mapView.when(() => {
         this.mapLoaded.emit(true);
+        console.log(this.coordinate)
+        mapView.goTo({center: this.coordinate})
       });
+
+      mapView.on("drag", (evt)=>{
+        if(evt.action == "end"){
+          let {x, y} = EsriWebMercator.webMercatorToGeographic(mapView.toMap({x: evt.x, y: evt.y}))
+          this.coordinate = [y, x]
+          console.log(this.coordinate)
+        }
+       });
+
     } catch (error) {
       console.log('We have an error: ' + error);
     }
