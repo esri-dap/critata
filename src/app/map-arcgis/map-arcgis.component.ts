@@ -29,6 +29,9 @@
 
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { loadModules } from 'esri-loader';
+
+import { MapStateService } from '../@core/data/mapstate.service';
+
 import esri = __esri;
 
 @Component({
@@ -88,7 +91,13 @@ export class MapArcgisComponent implements OnInit {
     return this._webmap;
   }
 
-  constructor() { }
+  constructor(private mapStateService: MapStateService) {
+    this.mapStateService.execChange_locationpoint.subscribe(value => {
+      console.log(value)
+      this.coordinate = value
+    })
+    console.log(this.coordinate)
+   }
 
   async initializeMap() {
     try {
@@ -133,14 +142,16 @@ export class MapArcgisComponent implements OnInit {
 
       mapView.when(() => {
         this.mapLoaded.emit(true);
-        console.log(this.coordinate)
-        mapView.goTo({center: this.coordinate})
+        mapView.goTo({
+          center: this.coordinate
+        })
       });
 
       mapView.on("drag", (evt)=>{
         if(evt.action == "end"){
           let {x, y} = EsriWebMercator.webMercatorToGeographic(mapView.toMap({x: evt.x, y: evt.y}))
           this.coordinate = [y, x]
+          this.mapStateService.updateLocationPoint(this.coordinate)
           console.log(this.coordinate)
         }
        });
