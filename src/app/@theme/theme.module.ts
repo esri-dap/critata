@@ -38,6 +38,8 @@ import {
 import { NbSecurityModule } from '@nebular/security';
 
 import {
+  SidebarCompactComponent,
+  FooterCompactComponent,
   FooterComponent,
   HeaderComponent,
   SearchInputComponent,
@@ -60,10 +62,12 @@ import {
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  ArcgisCompactLayoutComponent,
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
+import { ARCGIS_COMPACT_DEFAULT_THEME } from './styles/theme.arcgis-compact-default';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -106,6 +110,8 @@ const COMPONENTS = [
   ThemeSwitcherComponent,
   ThemeSwitcherListComponent,
   HeaderComponent,
+  SidebarCompactComponent,
+  FooterCompactComponent,
   FooterComponent,
   SearchInputComponent,
   ThemeSettingsComponent,
@@ -113,6 +119,7 @@ const COMPONENTS = [
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  ArcgisCompactLayoutComponent,
 ];
 
 const ENTRY_COMPONENTS = [
@@ -131,9 +138,9 @@ const PIPES = [
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(
     {
-      name: 'cosmic',
+      name: 'arcgis-compact-default',
     },
-    [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME ],
+    [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, ARCGIS_COMPACT_DEFAULT_THEME ],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,

@@ -1,6 +1,8 @@
 @import '../../styles/themes';
 @import '~bootstrap/scss/mixins/breakpoints';
 @import '~@nebular/theme/styles/global/breakpoints';
+@import '~@nebular/theme/styles/core/mixins';
+@import '~@nebular/theme/styles/core/functions';
 
 @include nb-install-component() {
   display: flex;
@@ -13,6 +15,7 @@
     order: 0;
     flex-direction: row;
   }
+
   .right {
     order: 1;
     flex-direction: row-reverse;
@@ -22,6 +25,12 @@
     display: flex;
     align-items: center;
     width: calc(#{nb-theme(sidebar-width)} - #{nb-theme(header-padding)});
+
+    .logo-img {
+      max-width: 38px;
+      height: 38px;
+      padding-bottom: 3px
+    }
   }
 
   .control-item {
@@ -55,6 +64,53 @@
 
       span {
         font-weight: nb-theme(font-weight-normal);
+      }
+    }
+
+    .button-header {
+      display: flex;
+      height: 32px;
+      font-size: 10pt;
+      padding: 0.8rem 1.25rem;
+      align-items: center;
+      margin-right: 0.625rem;
+      cursor: pointer;
+      background-color: nb-theme(button-header-background);
+      border-radius: nb-theme(radius);
+  
+      &:hover {
+        background-color: nb-theme(button-header-background-hover);
+      }
+  
+      span {
+        margin: 0 1.2rem;
+        color: #ffffff;
+      }
+  
+      i {
+        color: #ffffff;
+        font-size: 1.25rem;
+        border-radius: 50%;
+        position: relative;
+  
+        @include nb-for-theme(default) {
+          color: nb-theme(color-success);
+        }
+
+        @include nb-for-theme(arcgis-compact-default) {
+          color: #ffffff;
+        }
+  
+        @include nb-for-theme(corporate) {
+          color: nb-theme(color-fg-highlight);
+        }
+  
+        &::before {
+          // Hack for IE11, IE11 should not set background
+          background: nb-theme(drops-icon-line-gadient);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
       }
     }
   }
@@ -133,9 +189,11 @@
     0% {
       box-shadow: 0 0 1px 0 rgba(nb-theme(color-fg-highlight), 0);
     }
+
     20% {
       box-shadow: 0 0 3px 10px rgba(nb-theme(color-fg-highlight), 0.4);
     }
+
     100% {
       box-shadow: 0 0 5px 20px rgba(nb-theme(color-fg-highlight), 0);
     }
@@ -145,9 +203,11 @@
     0% {
       box-shadow: 0 0 1px 0 rgba(115, 255, 208, 0);
     }
+
     20% {
       box-shadow: 0 0 3px 10px rgba(115, 255, 208, 0.4);
     }
+
     100% {
       box-shadow: 0 0 5px 20px rgba(115, 255, 208, 0);
     }

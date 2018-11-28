@@ -1,0 +1,27 @@
+.footer-compact {
+    font-size: 0.825rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px 0 15px;
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+    width: 100vw;
+    background-color: rgba(255,255,255,1);
+}
+
+.footer-logo-text {
+    font-size: 0.625rem;
+    padding: 3px 5px 0 0;
+}
+
+.footer-title-text {
+    font-size: 0.925rem;
+}
+
+.footer-logo-img {
+    padding: 0 0 2px 0;
+    width: 87px;
+    height: auto;
+}

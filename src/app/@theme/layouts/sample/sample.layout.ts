@@ -22,12 +22,13 @@ import { StateService } from '../../../@core/data/state.service';
       </nb-layout-header>
 
       <nb-sidebar class="menu-sidebar"
+                  state="compacted" 
                    tag="menu-sidebar"
                    responsive
                    [end]="sidebar.id === 'end'">
         <nb-sidebar-header *ngIf="currentTheme !== 'corporate'">
           <a href="#" class="btn btn-hero-success main-btn">
-            <i class="ion ion-social-github"></i> <span>Support Us</span>
+            <i class="ion ion-social-github"></i> <span>Support asoee</span>
           </a>
         </nb-sidebar-header>
         <ng-content select="nb-menu"></ng-content>
