@@ -27,22 +27,29 @@
   limitations under the License.
 */
 
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { loadModules } from 'esri-loader';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Input,
+  Output,
+  EventEmitter
+} from "@angular/core";
+import { loadModules } from "esri-loader";
 
-import { MapStateService } from '../@core/data/mapstate.service';
+import { MapStateService } from "../@core/data/mapstate.service";
 
 import esri = __esri;
 
 @Component({
-  selector: 'map-arcgis',
-  templateUrl: './map-arcgis.component.html',
-  styleUrls: ['./map-arcgis.component.css']
+  selector: "map-arcgis",
+  templateUrl: "./map-arcgis.component.html",
+  styleUrls: ["./map-arcgis.component.css"]
 })
 export class MapArcgisComponent implements OnInit {
-
   @Output() mapLoaded = new EventEmitter<boolean>();
-  @ViewChild('mapViewNode') private mapViewEl: ElementRef;
+  @ViewChild("mapViewNode") private mapViewEl: ElementRef;
 
   /**
    * @private _zoom sets map zoom
@@ -51,9 +58,9 @@ export class MapArcgisComponent implements OnInit {
    */
   private _zoom: number = 10;
   private _center: Array<number> = [-6.175, 106.825];
-  private _basemap: string = 'streets';
+  private _basemap: string = "streets";
   private _webmap: string = "a762c0e234a94af99cf8c2a0c835f7d4";
-  private coordinate: number[] = [null, null]
+  private coordinate: number[] = [null, null];
 
   @Input()
   set zoom(zoom: number) {
@@ -93,30 +100,35 @@ export class MapArcgisComponent implements OnInit {
 
   constructor(private mapStateService: MapStateService) {
     this.mapStateService.execChange_locationpoint.subscribe(value => {
-      console.log(value)
-      this.coordinate = value
-    })
-    console.log(this.coordinate)
-   }
+      console.log(value);
+      this.coordinate = value;
+    });
+    console.log(this.coordinate);
+  }
 
   async initializeMap() {
     try {
-      const [EsriMapView, EsriWebMap, EsriConfig, EsriWebMercator] = await loadModules([
-        'esri/views/MapView',
-        'esri/WebMap',
-        'esri/config',
-        'esri/geometry/support/webMercatorUtils'
+      const [
+        EsriMapView,
+        EsriWebMap,
+        EsriConfig,
+        EsriWebMercator
+      ] = await loadModules([
+        "esri/views/MapView",
+        "esri/WebMap",
+        "esri/config",
+        "esri/geometry/support/webMercatorUtils"
       ]);
 
-      const esriConfig: esri.config = EsriConfig
+      const esriConfig: esri.config = EsriConfig;
 
-      esriConfig.portalUrl = "http://jakartasatu.jakarta.go.id/portal"
+      esriConfig.portalUrl = "http://jakartasatu.jakarta.go.id/portal";
 
       const webmapProperties: esri.WebMapProperties = {
-        portalItem: { 
-          id: this._webmap,
+        portalItem: {
+          id: this._webmap
         }
-      }
+      };
 
       const webmap: esri.WebMap = new EsriWebMap(webmapProperties);
 
@@ -132,7 +144,7 @@ export class MapArcgisComponent implements OnInit {
         container: this.mapViewEl.nativeElement,
         // center: this._center,
         // zoom: this._zoom,
-        map: webmap,
+        map: webmap
       };
 
       const mapView: esri.MapView = new EsriMapView(mapViewProperties);
@@ -144,26 +156,29 @@ export class MapArcgisComponent implements OnInit {
         this.mapLoaded.emit(true);
         mapView.goTo({
           center: this.coordinate
-        })
+        });
       });
 
-      mapView.on("drag", (evt)=>{
-        if(evt.action == "end"){
-          let {x, y} = EsriWebMercator.webMercatorToGeographic(mapView.toMap({x: evt.x, y: evt.y}))
-          this.coordinate = [y, x]
-          this.mapStateService.updateLocationPoint(this.coordinate)
-          console.log(this.coordinate)
+      mapView.on("drag", evt => {
+        if (evt.action == "end") {
+          let { x, y } = EsriWebMercator.webMercatorToGeographic(
+            mapView.toMap({ x: evt.x, y: evt.y })
+          );
+          this.coordinate = [y, x];
+          this.mapStateService.updateLocationPoint(this.coordinate);
+          console.log(this.coordinate);
         }
-       });
+      });
 
+      mapView.on("click", evt => {
+        console.log(mapView.popup.title, mapView.popup.selectedFeature, mapView.popup)
+      })
     } catch (error) {
-      console.log('We have an error: ' + error);
+      console.log("We have an error: " + error);
     }
-
   }
 
   ngOnInit() {
     this.initializeMap();
   }
-
 }
