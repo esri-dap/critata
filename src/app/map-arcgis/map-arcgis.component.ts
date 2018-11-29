@@ -170,22 +170,22 @@ export class MapArcgisComponent implements OnInit {
         // esriMapView.goTo
       });
 
-      esriMapView.on("click", (event) => {
-        console.log("onclick", event);
-        let {x, y} = EsriWebMercator.webMercatorToGeographic(esriMapView.toMap({x: event.x, y: event.y}))
-        this._coordinate = [y, x]
-        this.mapStateService.updateLocationPoint(this._coordinate)
-        console.log("click-coordinate", this._coordinate);
-      })
+      // esriMapView.on("click", (event) => {
+      //   console.log("onclick", event);
+      //   let {x, y} = EsriWebMercator.webMercatorToGeographic(esriMapView.toMap({x: event.x, y: event.y}))
+      //   this._coordinate = [y, x]
+      //   this.mapStateService.updateLocationPoint(this._coordinate)
+      //   console.log("click-coordinate", this._coordinate);
+      // })
 
-      esriMapView.on("drag", (evt)=>{
-        if(evt.action == "end"){
-          let {x, y} = EsriWebMercator.webMercatorToGeographic(esriMapView.toMap({x: evt.x, y: evt.y}))
-          this._coordinate = [y, x]
-          this.mapStateService.updateLocationPoint(this._coordinate)
-          console.log("drag-coordinate", this._coordinate)
-        }
-      });
+      // esriMapView.on("drag", (evt)=>{
+      //   if(evt.action == "end"){
+      //     let {x, y} = EsriWebMercator.webMercatorToGeographic(esriMapView.toMap({x: evt.x, y: evt.y}))
+      //     this._coordinate = [y, x]
+      //     this.mapStateService.updateLocationPoint(this._coordinate)
+      //     console.log("drag-coordinate", this._coordinate)
+      //   }
+      // });
 
       esriMapView.on("click", evt => {
         console.log(esriMapView.popup.title, esriMapView.popup.selectedFeature, esriMapView.popup)

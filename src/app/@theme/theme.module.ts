@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MapArcgisModule } from '../map-arcgis/map-arcgis.module'
+import { SceneArcgisModule } from '../scene-arcgis/scene-arcgis.module'
 
 import {
   MapBasemapComponent,
@@ -123,6 +124,7 @@ const NB_MODULES = [
   NbSelectModule,
   NbTooltipModule,
   MapArcgisModule,
+  SceneArcgisModule,
 ];
 
 const COMPONENTS = [

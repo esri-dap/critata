@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MapStateService } from '../../@core/data/mapstate.service';
+import { MapArcgisModule } from '../../map-arcgis/map-arcgis.module';
 // import { MapLegendComponent } from '../../map-arcgis/legend/legend.component'
 
 @Component({
@@ -12,7 +13,7 @@ export class PetaExistingComponent implements OnInit {
 	mapCenter = [ -6.175, 106.825 ];
 	basemapType = 'satellite';
 	mapZoomLevel = 15;
-	webmapId = 'a762c0e234a94af99cf8c2a0c835f7d4';
+	webmapId = '0e9ca7fffb2f44f1a9433e80aa0223da';
 	// coordinate = [null, null];
 
 	_subscriptionPanelState: any; 
