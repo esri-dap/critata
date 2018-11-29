@@ -166,7 +166,7 @@ export class MapArcgisComponent implements OnInit {
       // });
 
       esriMapView.when(() => {
-        this.mapLoaded.emit(true);
+        this.mapLoaded.emit(esriMapView);
         // esriMapView.goTo
       });
 

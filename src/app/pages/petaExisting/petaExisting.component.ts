@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MapStateService } from '../../@core/data/mapstate.service';
 // import { MapLegendComponent } from '../../map-arcgis/legend/legend.component'
+import { loadModules } from "esri-loader";
 
 @Component({
 	selector: 'app-peta-existing',
@@ -95,8 +96,19 @@ export class PetaExistingComponent implements OnInit {
 	}
 
 	// See app.component.html
-	mapLoadedEvent(status: boolean) {
-		console.log('The map loaded: ' + status);
+	async mapLoadedEvent(mapView: any) {
+		try {
+			const [EsriWidgetLegend, EsriWidgetBasemap] = await loadModules(["esri/widgets/Legend", "esri/widgets/BasemapGallery"]);
+			var legend = new EsriWidgetLegend({
+				view: mapView,
+				container: "legend"
+			  });
+
+			  var basemap = new EsriWidgetBasemap({
+				view: mapView,
+				container: "basemap"
+			  })
+		  } catch {}
 	}
 
 	togglePanel(panel: string) {
