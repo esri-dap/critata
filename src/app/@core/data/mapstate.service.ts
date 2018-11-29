@@ -6,6 +6,8 @@ export class MapStateService {
 	execChange_footertitle: Subject<any> = new Subject<any>();
 	execChange_locationpoint: Subject<any> = new Subject<any>();
 
+	coordinates: Array<number> = [null, null]
+
 	constructor() {}
 
 	/**
@@ -18,5 +20,8 @@ export class MapStateService {
 
 	updateLocationPoint(data: number[]) {
 		this.execChange_locationpoint.next(data);
+		this.coordinates = data;
+		console.log("global-coord", this.coordinates);
+		
 	}
 }

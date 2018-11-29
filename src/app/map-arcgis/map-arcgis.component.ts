@@ -49,11 +49,14 @@ export class MapArcgisComponent implements OnInit {
    * @private _center sets map center
    * @private _basemap sets type of map
    */
-  private _zoom: number = 10;
-  private _center: Array<number> = [-6.175, 106.825];
+  private _zoom: number = 15;
+  private _center: Array<number> = [-6.175642711255031, 106.8251880714399];
   private _basemap: string = 'streets';
   private _webmap: string = "a762c0e234a94af99cf8c2a0c835f7d4";
-  private coordinate: number[] = [null, null]
+  private _coordinate: Array<number> = [null, null]
+  esriMapView: any;
+
+  _subcriptionMapCenter: any;
 
   @Input()
   set zoom(zoom: number) {
@@ -72,6 +75,15 @@ export class MapArcgisComponent implements OnInit {
   get center(): Array<number> {
     return this._center;
   }
+
+  // @Input()
+  // set coordinate(coordinate: Array<number>) {
+  //   this._coordinate = coordinate;
+  // }
+
+  // get coordinate(): Array<number> {
+  //   return this._coordinate;
+  // }
 
   @Input()
   set basemap(basemap: string) {
@@ -92,11 +104,7 @@ export class MapArcgisComponent implements OnInit {
   }
 
   constructor(private mapStateService: MapStateService) {
-    this.mapStateService.execChange_locationpoint.subscribe(value => {
-      console.log(value)
-      this.coordinate = value
-    })
-    console.log(this.coordinate)
+    // console.log("coordlist", this._coordinate)
    }
 
   async initializeMap() {
@@ -130,29 +138,40 @@ export class MapArcgisComponent implements OnInit {
       // Set type of map view
       const mapViewProperties: esri.MapViewProperties = {
         container: this.mapViewEl.nativeElement,
-        // center: this._center,
-        // zoom: this._zoom,
+        // center: this._coordinate,
+        zoom: this._zoom,
         map: webmap,
       };
 
-      const mapView: esri.MapView = new EsriMapView(mapViewProperties);
+      const esriMapView: esri.MapView = new EsriMapView(mapViewProperties);
 
       // All resources in the MapView and the map have loaded.
       // Now execute additional processes
 
-      mapView.when(() => {
+      // this._subcriptionMapCenter = this.mapStateService.execChange_locationpoint.subscribe((value) => {
+      //   console.log("mapcoomp-coord", value);
+      //   this._coordinate = value; // this.username will hold your value and modify it every time it changes
+      // });
+
+      esriMapView.when(() => {
         this.mapLoaded.emit(true);
-        mapView.goTo({
-          center: this.coordinate
-        })
+        // esriMapView.goTo
       });
 
-      mapView.on("drag", (evt)=>{
+      esriMapView.on("click", (event) => {
+        console.log("onclick", event);
+        let {x, y} = EsriWebMercator.webMercatorToGeographic(esriMapView.toMap({x: event.x, y: event.y}))
+        this._coordinate = [y, x]
+        this.mapStateService.updateLocationPoint(this._coordinate)
+        console.log("click-coordinate", this._coordinate);
+      })
+
+      esriMapView.on("drag", (evt)=>{
         if(evt.action == "end"){
-          let {x, y} = EsriWebMercator.webMercatorToGeographic(mapView.toMap({x: evt.x, y: evt.y}))
-          this.coordinate = [y, x]
-          this.mapStateService.updateLocationPoint(this.coordinate)
-          console.log(this.coordinate)
+          let {x, y} = EsriWebMercator.webMercatorToGeographic(esriMapView.toMap({x: evt.x, y: evt.y}))
+          this._coordinate = [y, x]
+          this.mapStateService.updateLocationPoint(this._coordinate)
+          console.log("drag-coordinate", this._coordinate)
         }
        });
 
@@ -161,6 +180,79 @@ export class MapArcgisComponent implements OnInit {
     }
 
   }
+
+  // async initSceneView() {
+  //   try {
+  //     const [EsriMapView, EsriWebMap, EsriConfig, EsriWebMercator] = await loadModules([
+  //       'esri/views/MapView',
+  //       'esri/WebMap',
+  //       'esri/config',
+  //       'esri/geometry/support/webMercatorUtils'
+  //     ]);
+
+  //     const esriConfig: esri.config = EsriConfig
+
+  //     esriConfig.portalUrl = "http://jakartasatu.jakarta.go.id/portal"
+
+  //     const webmapProperties: esri.WebMapProperties = {
+  //       portalItem: { 
+  //         id: this._webmap,
+  //       }
+  //     }
+
+  //     const webmap: esri.WebMap = new EsriWebMap(webmapProperties);
+
+  //     // Set type of map
+  //     // const mapProperties: esri.MapProperties = {
+  //     //   basemap: this._basemap
+  //     // };
+
+  //     // const map: esri.Map = new EsriMap(mapProperties);
+
+  //     // Set type of map view
+  //     const mapViewProperties: esri.MapViewProperties = {
+  //       container: this.mapViewEl.nativeElement,
+  //       // center: this._coordinate,
+  //       zoom: this._zoom,
+  //       map: webmap,
+  //     };
+
+  //     const esriMapView: esri.MapView = new EsriMapView(mapViewProperties);
+
+  //     // All resources in the MapView and the map have loaded.
+  //     // Now execute additional processes
+
+  //     // this._subcriptionMapCenter = this.mapStateService.execChange_locationpoint.subscribe((value) => {
+  //     //   console.log("mapcoomp-coord", value);
+  //     //   this._coordinate = value; // this.username will hold your value and modify it every time it changes
+  //     // });
+
+  //     esriMapView.when(() => {
+  //       this.mapLoaded.emit(true);
+  //       // esriMapView.goTo
+  //     });
+
+  //     esriMapView.on("click", (event) => {
+  //       console.log("onclick", event);
+  //       let {x, y} = EsriWebMercator.webMercatorToGeographic(esriMapView.toMap({x: event.x, y: event.y}))
+  //       this._coordinate = [y, x]
+  //       this.mapStateService.updateLocationPoint(this._coordinate)
+  //       console.log("click-coordinate", this._coordinate);
+  //     })
+
+  //     esriMapView.on("drag", (evt)=>{
+  //       if(evt.action == "end"){
+  //         let {x, y} = EsriWebMercator.webMercatorToGeographic(esriMapView.toMap({x: evt.x, y: evt.y}))
+  //         this._coordinate = [y, x]
+  //         this.mapStateService.updateLocationPoint(this._coordinate)
+  //         console.log("drag-coordinate", this._coordinate)
+  //       }
+  //      });
+
+  //   } catch (error) {
+  //     console.log('We have an error: ' + error);
+  //   }
+  // }
 
   ngOnInit() {
     this.initializeMap();

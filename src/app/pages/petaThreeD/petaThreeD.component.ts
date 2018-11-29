@@ -6,18 +6,30 @@ import { MapStateService } from '../../@core/data/mapstate.service';
 	templateUrl: './petaThreeD.component.html'
 })
 export class PetaThreeDComponent implements OnInit {
+	_subcriptionMapCenter: any;
 	mapCenter = [ -6.175, 106.825 ];
 	basemapType = 'satellite';
-	mapZoomLevel = 12;
-	webmapId = 'a762c0e234a94af99cf8c2a0c835f7d4';
+	mapZoomLevel = 15;
+	websceneId = '7864459094ca4681ad772b8f33922d43';
+	maptype = 'scene'
+	// coordinate = [null, null];
 
 	constructor(private mapStateService: MapStateService) {
 		this.mapStateService.changeFooterTitle('PETA 3D JAKARTA (BETA)');
+		// this._subcriptionMapCenter = this.mapStateService.execChange_locationpoint.subscribe((value) => {
+		// 	console.log("state-coord", value);
+		// 	this.coordinate = value; // this.username will hold your value and modify it every time it changes
+		// });
 	}
 
 	ngOnInit() {
-
+		// this._subcriptionMapCenter = this.mapStateService.execChange_locationpoint.subscribe((value) => {
+		// 	console.log("state-coord", value);
+		// 	this.coordinate = value; // this.username will hold your value and modify it every time it changes
+		// });
 	}
+
+
 
 	// See app.component.html
 	mapLoadedEvent(status: boolean) {

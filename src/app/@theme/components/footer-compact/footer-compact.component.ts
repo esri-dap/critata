@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MapStateService } from '../../../@core/data/mapstate.service';
+import { ClipboardService } from 'ngx-clipboard'
 
 @Component({
 	selector: 'ngx-footer-compact',
@@ -8,7 +9,7 @@ import { MapStateService } from '../../../@core/data/mapstate.service';
 	template: `
   <div class="footer-compact">
 
-  <span class="created-by">Long: 106.187&nbsp;&nbsp;Lat: -6.177</span>
+  <span class="created-by">Long: {{longitude}}&nbsp;&nbsp;Lat: {{latitude}}</span>
   <span class="footer-title-text"><b>{{footerTitle}}</b></span>
   <div>
     <span class="footer-logo-text">POWERED BY</span>
@@ -23,11 +24,23 @@ import { MapStateService } from '../../../@core/data/mapstate.service';
 export class FooterCompactComponent {
   footerTitle: string = 'PETA JAKARTA';
   _subscriptionFooterTitle: any;
+  _subscriptionCoordinates: any;
+  longitude: any;
+  latitude: any;
 
-	constructor(private router: Router, private mapStateService: MapStateService) {
+	constructor(private router: Router, private mapStateService: MapStateService, private _clipboardService: ClipboardService) {
 		console.log(router.url);
 		this._subscriptionFooterTitle = this.mapStateService.execChange_footertitle.subscribe((value) => {
-			this.footerTitle = value; // this.username will hold your value and modify it every time it changes
+			this.footerTitle = value; 
+    });
+    this._subscriptionCoordinates = this.mapStateService.execChange_locationpoint.subscribe((value) => {
+      this.latitude = value[1]; 
+      this.longitude = value[0];
 		});
-	}
+  }
+
+  // copyCoords() {
+  //   this._clipboardService.copyFromContent("$this.longitude")
+  // }
+  
 }
