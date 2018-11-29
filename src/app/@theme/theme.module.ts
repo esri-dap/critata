@@ -13,6 +13,7 @@ import {
   MapMeasureComponent,
   MapSearchComponent,
   MapShareComponent,
+  MapPopupComponent,
 } from '../map-arcgis/map-widget'
 
 const MAP_WIDGET = [
@@ -21,7 +22,8 @@ const MAP_WIDGET = [
   MapLegendComponent,
   MapMeasureComponent,
   MapSearchComponent,
-  MapShareComponent
+  MapShareComponent,
+  MapPopupComponent,
 ];
 
 import {
