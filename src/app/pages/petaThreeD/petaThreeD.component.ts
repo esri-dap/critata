@@ -10,7 +10,7 @@ export class PetaThreeDComponent implements OnInit {
 	mapCenter = [ -6.175, 106.825 ];
 	basemapType = 'satellite';
 	mapZoomLevel = 15;
-	websceneId = '7864459094ca4681ad772b8f33922d43';
+	websceneId = '4d520aa74954426096d5a5a7eb424119';
 	maptype = 'scene'
 	// coordinate = [null, null];
 
