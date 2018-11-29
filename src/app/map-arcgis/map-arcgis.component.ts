@@ -27,22 +27,29 @@
   limitations under the License.
 */
 
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { loadModules } from 'esri-loader';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Input,
+  Output,
+  EventEmitter
+} from "@angular/core";
+import { loadModules } from "esri-loader";
 
-import { MapStateService } from '../@core/data/mapstate.service';
+import { MapStateService } from "../@core/data/mapstate.service";
 
 import esri = __esri;
 
 @Component({
-  selector: 'map-arcgis',
-  templateUrl: './map-arcgis.component.html',
-  styleUrls: ['./map-arcgis.component.css']
+  selector: "map-arcgis",
+  templateUrl: "./map-arcgis.component.html",
+  styleUrls: ["./map-arcgis.component.css"]
 })
 export class MapArcgisComponent implements OnInit {
-
   @Output() mapLoaded = new EventEmitter<boolean>();
-  @ViewChild('mapViewNode') private mapViewEl: ElementRef;
+  @ViewChild("mapViewNode") private mapViewEl: ElementRef;
 
   /**
    * @private _zoom sets map zoom
@@ -109,22 +116,27 @@ export class MapArcgisComponent implements OnInit {
 
   async initializeMap() {
     try {
-      const [EsriMapView, EsriWebMap, EsriConfig, EsriWebMercator] = await loadModules([
-        'esri/views/MapView',
-        'esri/WebMap',
-        'esri/config',
-        'esri/geometry/support/webMercatorUtils'
+      const [
+        EsriMapView,
+        EsriWebMap,
+        EsriConfig,
+        EsriWebMercator
+      ] = await loadModules([
+        "esri/views/MapView",
+        "esri/WebMap",
+        "esri/config",
+        "esri/geometry/support/webMercatorUtils"
       ]);
 
-      const esriConfig: esri.config = EsriConfig
+      const esriConfig: esri.config = EsriConfig;
 
-      esriConfig.portalUrl = "http://jakartasatu.jakarta.go.id/portal"
+      esriConfig.portalUrl = "http://jakartasatu.jakarta.go.id/portal";
 
       const webmapProperties: esri.WebMapProperties = {
-        portalItem: { 
-          id: this._webmap,
+        portalItem: {
+          id: this._webmap
         }
-      }
+      };
 
       const webmap: esri.WebMap = new EsriWebMap(webmapProperties);
 
@@ -173,12 +185,14 @@ export class MapArcgisComponent implements OnInit {
           this.mapStateService.updateLocationPoint(this._coordinate)
           console.log("drag-coordinate", this._coordinate)
         }
-       });
+      });
 
+      esriMapView.on("click", evt => {
+        console.log(esriMapView.popup.title, esriMapView.popup.selectedFeature, esriMapView.popup)
+      })
     } catch (error) {
-      console.log('We have an error: ' + error);
+      console.log("We have an error: " + error);
     }
-
   }
 
   // async initSceneView() {
@@ -257,5 +271,4 @@ export class MapArcgisComponent implements OnInit {
   ngOnInit() {
     this.initializeMap();
   }
-
 }
