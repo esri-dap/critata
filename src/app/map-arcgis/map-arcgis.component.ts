@@ -58,9 +58,9 @@ export class MapArcgisComponent implements OnInit {
    */
   private _zoom: number = 15;
   private _center: Array<number> = [-6.175642711255031, 106.8251880714399];
-  private _basemap: string = 'streets';
+  private _basemap: string = "streets";
   private _webmap: string = "0e9ca7fffb2f44f1a9433e80aa0223da";
-  private _coordinate: Array<number> = [null, null]
+  private _coordinate: Array<number> = [null, null];
   esriMapView: any;
 
   _subcriptionMapCenter: any;
@@ -112,7 +112,7 @@ export class MapArcgisComponent implements OnInit {
 
   constructor(private mapStateService: MapStateService) {
     // console.log("coordlist", this._coordinate)
-   }
+  }
 
   async initializeMap() {
     try {
@@ -120,12 +120,22 @@ export class MapArcgisComponent implements OnInit {
         EsriMapView,
         EsriWebMap,
         EsriConfig,
-        EsriWebMercator
+        EsriWebMercator,
+        EsriWidgetLegend,
+        EsriWidgetBasemap,
+        EsriWidgetLocate,
+        EsriWidgetHome,
+        EsriWidgetZoom
       ] = await loadModules([
         "esri/views/MapView",
         "esri/WebMap",
         "esri/config",
-        "esri/geometry/support/webMercatorUtils"
+        "esri/geometry/support/webMercatorUtils",
+        "esri/widgets/Legend",
+        "esri/widgets/BasemapGallery",
+        "esri/widgets/Locate",
+        "esri/widgets/Home",
+        "esri/widgets/Zoom"
       ]);
 
       const esriConfig: esri.config = EsriConfig;
@@ -152,7 +162,7 @@ export class MapArcgisComponent implements OnInit {
         container: this.mapViewEl.nativeElement,
         // center: this._coordinate,
         zoom: this._zoom,
-        map: webmap,
+        map: webmap
       };
 
       const esriMapView: esri.MapView = new EsriMapView(mapViewProperties);
@@ -166,9 +176,34 @@ export class MapArcgisComponent implements OnInit {
       // });
 
       esriMapView.when(() => {
-        this.mapLoaded.emit(esriMapView);
+        this.mapLoaded.emit(true);
         // esriMapView.goTo
       });
+
+      let legend = new EsriWidgetLegend({
+        view: esriMapView,
+        container: "legend"
+      });
+
+      let basemap = new EsriWidgetBasemap({
+        view: esriMapView,
+        container: "basemap"
+      });
+
+      let locate = new EsriWidgetLocate({
+        view: esriMapView,
+        container: "locate"
+      });
+
+      let home = new EsriWidgetHome({
+        view: esriMapView,
+        container: "home"
+      });
+
+      let zoom = new EsriWidgetZoom({
+        view: esriMapView,
+        container: "zoom"
+      })
 
       // esriMapView.on("click", (event) => {
       //   console.log("onclick", event);
@@ -188,8 +223,12 @@ export class MapArcgisComponent implements OnInit {
       // });
 
       esriMapView.on("click", evt => {
-        console.log(esriMapView.popup.title, esriMapView.popup.selectedFeature, esriMapView.popup)
-      })
+        console.log(
+          esriMapView.popup.title,
+          esriMapView.popup.selectedFeature,
+          esriMapView.popup
+        );
+      });
     } catch (error) {
       console.log("We have an error: " + error);
     }
@@ -209,7 +248,7 @@ export class MapArcgisComponent implements OnInit {
   //     esriConfig.portalUrl = "http://jakartasatu.jakarta.go.id/portal"
 
   //     const webmapProperties: esri.WebMapProperties = {
-  //       portalItem: { 
+  //       portalItem: {
   //         id: this._webmap,
   //       }
   //     }
