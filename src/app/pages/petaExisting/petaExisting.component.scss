@@ -1,4 +1,156 @@
+@import '../../@theme/styles/themes';
+
 .map-arcgis {
-    width: 100vw;
-    height: 90vh;
+  width: 100vw;
+  height: 90vh;
+}
+
+.hide {
+  display: none;
+}
+
+.btn-circle {
+  cursor: pointer;
+  border-style: none;
+  border-radius: 32px;
+  margin-top: 32px;
+  margin-left: 10px;
+  width: 32px;
+  height: 32px;
+  background-color: nb-theme(default-color-bg);
+
+  &:hover {
+    background-color: nb-theme(hover-color-bg);
+  }
+
+  img {
+    width: 18px;
+    height: auto;
+  }
+}
+
+.action-container {
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  float: left;
+  // align-items: ;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 60px;
+  left: 70px;
+  height: 140px;
+  width: 534px;
+  // background-color: #ffffff;
+
+  .action-map-view {
+    display: flex;
+    flex-direction: row;
+    float: left;
+    // background-color: aqua;
+    height: 64px;
+    width: auto;
+
+    .container-btn-zoom {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-content: space-between;
+      width: 32px;
+      height: auto;
+      // background-color: nb-theme(default-color-bg);
+      border-radius: nb-theme(radius);
+      border-style: none;
+
+      .btn-zoom-in {
+        cursor: pointer;
+        border-style: none;
+        border-radius: nb-theme(radius) nb-theme(radius) 0 0;
+        height: 32px;
+        background-color: nb-theme(default-color-bg);
+
+        &:hover {
+          background-color: nb-theme(hover-color-bg);
+        }
+
+        img {
+          width: 18px;
+          height: auto;
+        }
+      }
+
+      .btn-zoom-out {
+        cursor: pointer;
+        border-style: none;
+        border-radius: 0 0 nb-theme(radius) nb-theme(radius);
+        height: 32px;
+        background-color: nb-theme(default-color-bg);
+
+        &:hover {
+          background-color: nb-theme(hover-color-bg);
+        }
+
+        img {
+          width: 18px;
+          height: auto;
+        }
+
+      }
+    }
+
+
+
+  }
+
+  .action-widget {
+    display: flex;
+    flex-direction: row;
+    float: left;
+    // background-color: nb-theme(default-color-bg);
+    height: 50px;
+    width: auto;
+    border-style: none;
+    border-radius: nb-theme(radius);
+
+    .btn-widget {
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+      width: 178px;
+      border-style: none;
+      background-color: nb-theme(default-color-bg);
+      font-size: 10pt;
+      font-weight: 500;
+
+      &:hover {
+        background-color: nb-theme(hover-color-bg);
+      }
+
+      &.laporan {
+        border-radius: nb-theme(radius) 0 0 nb-theme(radius);
+      }
+
+      &.search {
+        border-radius: 0 0 0 0;
+      }
+
+      &.measure {
+        border-radius: 0 nb-theme(radius) nb-theme(radius) 0;
+      }
+
+      img {
+        width: 18px;
+        height: auto;
+      }
+
+      span {
+        padding: 0 0 0 10px;
+      }
+
+
+    }
+  }
 }

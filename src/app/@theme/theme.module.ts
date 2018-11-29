@@ -3,6 +3,26 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { MapArcgisModule } from '../map-arcgis/map-arcgis.module'
+
+import {
+  MapBasemapComponent,
+  MapLaporanComponent,
+  MapLegendComponent,
+  MapMeasureComponent,
+  MapSearchComponent,
+  MapShareComponent,
+} from '../map-arcgis/map-widget'
+
+const MAP_WIDGET = [
+  MapBasemapComponent,
+  MapLaporanComponent,
+  MapLegendComponent,
+  MapMeasureComponent,
+  MapSearchComponent,
+  MapShareComponent
+];
+
 import {
   NbActionsModule,
   NbCardModule,
@@ -102,6 +122,7 @@ const NB_MODULES = [
   NbRadioModule,
   NbSelectModule,
   NbTooltipModule,
+  MapArcgisModule,
 ];
 
 const COMPONENTS = [
@@ -151,8 +172,8 @@ const NB_THEME_PROVIDERS = [
 
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES],
-  exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES],
+  exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES, ...MAP_WIDGET],
+  declarations: [...COMPONENTS, ...PIPES, ...MAP_WIDGET],
   entryComponents: [...ENTRY_COMPONENTS],
 })
 export class ThemeModule {

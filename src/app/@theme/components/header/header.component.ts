@@ -1,8 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
+import { icons } from 'eva-icons';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserService } from '../../../@core/data/users.service';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
+import { MapStateService } from '../../../@core/data/mapstate.service';
+
+// import { PetaExistingComponent } from '../../../pages/petaExisting/petaExisting.component'
 
 @Component({
   selector: 'ngx-header',
@@ -11,7 +15,13 @@ import { AnalyticsService } from '../../../@core/utils/analytics.service';
 })
 export class HeaderComponent implements OnInit {
 
+  // panelMapLegend = PetaExistingComponent;
+  // opened: Boolean = false;
+
+
   @Input() position = 'normal';
+
+  evaIcons = [];
 
   user: any;
 
@@ -20,7 +30,13 @@ export class HeaderComponent implements OnInit {
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private userService: UserService,
+              private mapStateService: MapStateService,
               private analyticsService: AnalyticsService) {
+                this.evaIcons = Object.keys(icons).filter(icon => icon.indexOf('outline') === -1);
+  }
+
+  togglePanel(panel: string) {
+    this.mapStateService.changePanelState(panel);
   }
 
   ngOnInit() {

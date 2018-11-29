@@ -59,7 +59,7 @@ export class MapArcgisComponent implements OnInit {
   private _zoom: number = 15;
   private _center: Array<number> = [-6.175642711255031, 106.8251880714399];
   private _basemap: string = 'streets';
-  private _webmap: string = "a762c0e234a94af99cf8c2a0c835f7d4";
+  private _webmap: string = "0e9ca7fffb2f44f1a9433e80aa0223da";
   private _coordinate: Array<number> = [null, null]
   esriMapView: any;
 

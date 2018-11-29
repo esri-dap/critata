@@ -5,8 +5,10 @@ import { Subject } from 'rxjs/Subject';
 export class MapStateService {
 	execChange_footertitle: Subject<any> = new Subject<any>();
 	execChange_locationpoint: Subject<any> = new Subject<any>();
+	execChange_panelState: Subject<any> = new Subject<any>();
 
-	coordinates: Array<number> = [null, null]
+	coordinates: Array<number> = [null, null];
+	panelOpened: string;
 
 	constructor() {}
 
@@ -23,5 +25,10 @@ export class MapStateService {
 		this.coordinates = data;
 		console.log("global-coord", this.coordinates);
 		
+	}
+
+	changePanelState(data: string) {
+		this.execChange_panelState.next(data);
+		this.panelOpened = data;
 	}
 }

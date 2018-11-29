@@ -1,8 +1,55 @@
-<map-arcgis 
+<!-- <map-arcgis 
     [center]="mapCenter" 
     [basemap]="basemapType" 
     [zoom]="mapZoomLevel" 
     (mapLoaded)="mapLoadedEvent($event)"
     [webmap]="webmapId"
 >
-</map-arcgis>
+</map-arcgis> -->
+
+<div class="action-container">
+  <div class="action-map-view">
+    <div class="container-btn-zoom">
+      <button class="btn-zoom-in">
+        <img src="../../../assets/images/icons/ic_zoom_in@4x.png">
+      </button>
+      <button class="btn-zoom-out">
+        <img src="../../../assets/images/icons/ic_zoom_out@4x.png">
+      </button>
+    </div>
+    <button class="btn-circle">
+      <img src="../../../assets/images/icons/ic_mapview_center@4x.png">
+    </button>
+    <button class="btn-circle">
+      <img src="../../../assets/images/icons/ic_mapview_currentLoc@4x.png">
+    </button>
+  </div>
+
+  <div class="action-widget">
+    <button (click)='togglePanel("laporan")' class="btn-widget laporan">
+      <img src="../../../assets/images/icons/ic_widget_laporan@4x.png">
+      <span>BUAT LAPORAN</span>
+    </button>
+    <button (click)='togglePanel("search")' class="btn-widget search">
+      <img src="../../../assets/images/icons/ic_widget_search@4x.png">
+      <span>PENCARIAN</span>
+    </button>
+    <button (click)='togglePanel("measure")' class="btn-widget measure">
+      <img src="../../../assets/images/icons/ic_widget_measurement@4x.png">
+      <span>PENGUKURAN</span>
+    </button>
+  </div>
+</div>
+
+<map-legend [ngClass]="{hide: !panellegend}">
+</map-legend>
+<map-basemap [ngClass]="{hide: !panelbasemap}">
+</map-basemap>
+<map-share [ngClass]="{hide: !panelshare}">
+</map-share>
+<map-laporan [ngClass]="{hide: !panellaporan}">
+</map-laporan>
+<map-search [ngClass]="{hide: !panelsearch}">
+</map-search>
+<map-measure [ngClass]="{hide: !panelmeasure}">
+</map-measure>

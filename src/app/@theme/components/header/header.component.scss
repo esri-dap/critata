@@ -4,7 +4,18 @@
 @import '~@nebular/theme/styles/core/mixins';
 @import '~@nebular/theme/styles/core/functions';
 
+/deep/ nb-card.popover-card {
+  margin-bottom: 0;
+  width: 300px;
+  box-shadow: none;
+}
+
+.hide {
+  display: none;
+}
+
 @include nb-install-component() {
+
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -77,40 +88,232 @@
       cursor: pointer;
       background-color: nb-theme(button-header-background);
       border-radius: nb-theme(radius);
-  
+
       &:hover {
         background-color: nb-theme(button-header-background-hover);
       }
-  
+
       span {
         margin: 0 1.2rem;
         color: #ffffff;
       }
-  
+
       i {
         color: #ffffff;
         font-size: 1.25rem;
         border-radius: 50%;
         position: relative;
-  
-        @include nb-for-theme(default) {
-          color: nb-theme(color-success);
-        }
 
-        @include nb-for-theme(arcgis-compact-default) {
-          color: #ffffff;
-        }
-  
-        @include nb-for-theme(corporate) {
-          color: nb-theme(color-fg-highlight);
-        }
-  
-        &::before {
-          // Hack for IE11, IE11 should not set background
-          background: nb-theme(drops-icon-line-gadient);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
+        // @include nb-for-theme(default) {
+        //   color: nb-theme(color-success);
+        // }
+
+        // @include nb-for-theme(arcgis-compact-default) {
+        //   color: #ffffff;
+        // }
+
+        // @include nb-for-theme(corporate) {
+        //   color: nb-theme(color-fg-highlight);
+        // }
+
+        // &::before {
+        //   // Hack for IE11, IE11 should not set background
+        //   background: nb-theme(drops-icon-line-gadient);
+        //   -webkit-background-clip: text;
+        //   -webkit-text-fill-color: transparent;
+        // }
+      }
+    }
+
+    .button-header-howto {
+      display: flex;
+      height: 32px;
+      font-size: 10pt;
+      font-weight: bold;
+      padding: 0.8rem 1.25rem;
+      align-items: center;
+      margin-right: 0.625rem;
+      cursor: pointer;
+      background-color: nb-theme(button-header-howto-background);
+      border-radius: nb-theme(radius);
+
+      &:hover {
+        background-color: nb-theme(button-header-howto-background-hover);
+      }
+
+      span {
+        margin: 0 1.2rem;
+        color: #ffffff;
+      }
+
+      i {
+        color: #ffffff;
+        font-size: 1.25rem;
+        border-radius: 50%;
+        position: relative;
+
+        // @include nb-for-theme(default) {
+        //   color: nb-theme(color-success);
+        // }
+
+        // @include nb-for-theme(arcgis-compact-default) {
+        //   color: #ffffff;
+        // }
+
+        // @include nb-for-theme(corporate) {
+        //   color: nb-theme(color-fg-highlight);
+        // }
+
+        // &::before {
+        //   // Hack for IE11, IE11 should not set background
+        //   background: nb-theme(drops-icon-line-gadient);
+        //   -webkit-background-clip: text;
+        //   -webkit-text-fill-color: transparent;
+        // }
+      }
+    }
+
+    .button-header-share {
+      display: flex;
+      height: 32px;
+      font-size: 10pt;
+      font-weight: bold;
+      padding: 0.8rem 1.25rem;
+      align-items: center;
+      margin-right: 0.625rem;
+      cursor: pointer;
+      background-color: nb-theme(button-header-share-background);
+      border-radius: nb-theme(radius);
+
+      &:hover {
+        background-color: nb-theme(button-header-share-background-hover);
+      }
+
+      span {
+        margin: 0 1.2rem;
+        color: #ffffff;
+      }
+
+      i {
+        color: #ffffff;
+        font-size: 1.25rem;
+        border-radius: 50%;
+        position: relative;
+
+        // @include nb-for-theme(default) {
+        //   color: nb-theme(color-success);
+        // }
+
+        // @include nb-for-theme(arcgis-compact-default) {
+        //   color: #ffffff;
+        // }
+
+        // @include nb-for-theme(corporate) {
+        //   color: nb-theme(color-fg-highlight);
+        // }
+
+        // &::before {
+        //   // Hack for IE11, IE11 should not set background
+        //   background: nb-theme(drops-icon-line-gadient);
+        //   -webkit-background-clip: text;
+        //   -webkit-text-fill-color: transparent;
+        // }
+      }
+    }
+
+    .button-header-legend {
+      display: flex;
+      height: 32px;
+      font-size: 10pt;
+      font-weight: bold;
+      padding: 0.8rem 1.25rem;
+      align-items: center;
+      margin-right: 0.625rem;
+      cursor: pointer;
+      background-color: nb-theme(button-header-legend-background);
+      border-radius: nb-theme(radius);
+
+      &:hover {
+        background-color: nb-theme(button-header-legend-background-hover);
+      }
+
+      span {
+        margin: 0 1.2rem;
+        color: #ffffff;
+      }
+
+      i {
+        color: #ffffff;
+        font-size: 1.25rem;
+        border-radius: 50%;
+        position: relative;
+
+        // @include nb-for-theme(default) {
+        //   color: nb-theme(color-success);
+        // }
+
+        // @include nb-for-theme(arcgis-compact-default) {
+        //   color: #ffffff;
+        // }
+
+        // @include nb-for-theme(corporate) {
+        //   color: nb-theme(color-fg-highlight);
+        // }
+
+        // &::before {
+        //   // Hack for IE11, IE11 should not set background
+        //   background: nb-theme(drops-icon-line-gadient);
+        //   -webkit-background-clip: text;
+        //   -webkit-text-fill-color: transparent;
+        // }
+      }
+    }
+
+    .button-header-basemap {
+      display: flex;
+      height: 32px;
+      font-size: 10pt;
+      font-weight: bold;
+      padding: 0.8rem 1.25rem;
+      align-items: center;
+      margin-right: 0.625rem;
+      cursor: pointer;
+      background-color: nb-theme(button-header-basemap-background);
+      border-radius: nb-theme(radius);
+
+      &:hover {
+        background-color: nb-theme(button-header-basemap-background-hover);
+      }
+
+      span {
+        margin: 0 1.2rem;
+        color: #ffffff;
+      }
+
+      i {
+        color: #ffffff;
+        font-size: 1.25rem;
+        border-radius: 50%;
+        position: relative;
+
+        // @include nb-for-theme(default) {
+        //   color: nb-theme(color-success);
+        // }
+
+        // @include nb-for-theme(arcgis-compact-default) {
+        //   color: #ffffff;
+        // }
+
+        // @include nb-for-theme(corporate) {
+        //   color: nb-theme(color-fg-highlight);
+        // }
+
+        // &::before {
+        //   // Hack for IE11, IE11 should not set background
+        //   background: nb-theme(drops-icon-line-gadient);
+        //   -webkit-background-clip: text;
+        //   -webkit-text-fill-color: transparent;
+        // }
       }
     }
   }

@@ -11,25 +11,21 @@
 
 <div class="header-container">
   <!-- <ngx-layout-direction-switcher></ngx-layout-direction-switcher> -->
-  <div class="button-header" 
-  >
-    <i class="nb-drops"></i>
-    <span>Legenda</span>
+  <div (click)='togglePanel("legend")' class="button-header-legend">
+    <!-- <i class="nb-drops"></i> -->
+    <span>LEGENDA</span>
   </div>
-  <div class="button-header" 
-  >
-    <i class="nb-drops"></i>
-    <span>Basis Peta</span>
+  <div (click)='togglePanel("basemap")' class="button-header-basemap">
+    <!-- <i class="nb-drops"></i> -->
+    <span>BASIS PETA</span>
   </div>
-  <div class="button-header" 
-  >
-    <i class="nb-drops"></i>
-    <span>Cara Menggunakan</span>
+  <div class="button-header-howto">
+    <!-- <i class="bulb"></i> -->
+    <span>CARA MENGGUNAKAN</span>
   </div>
-  <div class="button-header" 
-  >
-    <i class="nb-drops"></i>
-    <span>Share</span>
+  <div (click)='togglePanel("share")' class="button-header-share">
+    <!-- <i class="heart"></i> -->
+    <span>BAGIKAN</span>
   </div>
 
   <!-- <nb-actions size="medium" [class.right]="position === 'normal'" [class.left]="position === 'inverse'">
@@ -44,3 +40,4 @@
     </nb-action>
   </nb-actions> -->
 </div>
+

@@ -103,6 +103,8 @@ $nb-themes: nb-register-theme((
   sidebar-bg: rgba(255,255,255,0.85),
   tooltip-bg: rgba(255,255,255,0.85),
   tooltip-fg: #15161D,
+  default-color-bg: rgba(255,255,255,0.85),
+  hover-color-bg: rgba(0,0,0,0.10),
 
   sidebar-header-gap: 2rem,
   sidebar-footer-gap: 8vh,
@@ -125,6 +127,14 @@ $nb-themes: nb-register-theme((
   drops-icon-line-gadient: -webkit-linear-gradient(#e9e8eb, #a7a2be),
 
   button-header-background: #5C6979,
+  button-header-basemap-background: rgba(32, 205, 132, 1),
+  button-header-basemap-background-hover: rgba(32, 205, 132, 0.8),
+  button-header-legend-background: rgba(205, 52, 32, 1),
+  button-header-legend-background-hover: rgba(205, 52, 32, 0.8),
+  button-header-howto-background: #0290FF,
+  button-header-howto-background-hover: rgba(2, 144, 255, 0.8),
+  button-header-share-background: #FFA502,
+  button-header-share-background-hover: rgba(255, 165, 2, 0.8),
   button-header-background-hover: rgba(92,105,121,0.8),
 
   list-item-border-width: 1px,

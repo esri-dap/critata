@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { MapArcgisComponent } from './map-arcgis.component';
 
 @NgModule({
-  declarations: [MapArcgisComponent],
+  declarations: [
+    MapArcgisComponent,
+  ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [MapArcgisComponent],
 })
