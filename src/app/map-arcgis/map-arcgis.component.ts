@@ -51,6 +51,8 @@ export class MapArcgisComponent implements OnInit {
   @Output() mapLoaded = new EventEmitter<boolean>();
   @ViewChild("mapViewNode") private mapViewEl: ElementRef;
 
+  @Output() emitEsriMapView = new EventEmitter();
+
   /**
    * @private _zoom sets map zoom
    * @private _center sets map center
@@ -61,7 +63,7 @@ export class MapArcgisComponent implements OnInit {
   private _basemap: string = 'streets';
   private _webmap: string = "0e9ca7fffb2f44f1a9433e80aa0223da";
   private _coordinate: Array<number> = [null, null]
-  esriMapView: any;
+  // esriMapView: any;
 
   _subcriptionMapCenter: any;
 
@@ -166,7 +168,9 @@ export class MapArcgisComponent implements OnInit {
       // });
 
       esriMapView.when(() => {
-        this.mapLoaded.emit(esriMapView);
+        this.mapLoaded.emit(true);
+        // this.emitEsriMapView.emit(esriMapView);
+        this.mapStateService.stateEsriMapView(esriMapView);
         // esriMapView.goTo
       });
 

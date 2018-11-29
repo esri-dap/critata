@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
@@ -9,6 +10,16 @@ export class MapStateService {
 
 	coordinates: Array<number> = [null, null];
 	panelOpened: string;
+
+	listeners_esriMapView: Subject<any> = new Subject<any>();
+
+	listen_esriMapView(): Observable<any> {
+		return this.listeners_esriMapView.asObservable();
+	}
+
+	stateEsriMapView(mapView: any) {
+		this.listeners_esriMapView.next(mapView);
+	}
 
 	constructor() {}
 

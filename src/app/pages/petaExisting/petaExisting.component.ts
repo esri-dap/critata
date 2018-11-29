@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MapStateService } from '../../@core/data/mapstate.service';
-import { MapArcgisModule } from '../../map-arcgis/map-arcgis.module';
+// import { MapArcgisModule } from '../../map-arcgis/map-arcgis.module';
 // import { MapLegendComponent } from '../../map-arcgis/legend/legend.component'
-import { loadModules } from "esri-loader";
+import { loadModules } from 'esri-loader';
 
 @Component({
 	selector: 'app-peta-existing',
@@ -17,25 +17,25 @@ export class PetaExistingComponent implements OnInit {
 	webmapId = '0e9ca7fffb2f44f1a9433e80aa0223da';
 	// coordinate = [null, null];
 
-	_subscriptionPanelState: any; 
-	  panelbasemap: Boolean = false;
-	  panellaporan: Boolean = false;
-	  panellegend: Boolean = false;
-	  panelmeasure: Boolean = false;
-	  panelsearch: Boolean = false;
-	  panelshare: Boolean = false;
+	_subscriptionPanelState: any;
+	panelbasemap: Boolean = false;
+	panellaporan: Boolean = false;
+	panellegend: Boolean = false;
+	panelmeasure: Boolean = false;
+	panelsearch: Boolean = false;
+	panelshare: Boolean = false;
 
-	  panelState: string;
+	panelState: string;
 
 	constructor(private mapStateService: MapStateService) {
-		this.mapStateService.changeFooterTitle('PETA RUANG JAKARTA')
+		this.mapStateService.changeFooterTitle('PETA RUANG JAKARTA');
 		// this._subcriptionMapCenter = this.mapStateService.execChange_locationpoint.subscribe((value) => {
 		// 	console.log("state-coord", value);
 		// 	this.coordinate = value; // this.username will hold your value and modify it every time it changes
 		// });
 		this._subscriptionPanelState = this.mapStateService.execChange_panelState.subscribe((value) => {
 			this.panelState = value;
-			if (value == "basemap") {
+			if (value == 'basemap') {
 				this.panelbasemap = !this.panelbasemap;
 				this.panellaporan = false;
 				this.panellegend = false;
@@ -43,7 +43,7 @@ export class PetaExistingComponent implements OnInit {
 				this.panelsearch = false;
 				this.panelshare = false;
 			}
-			if (value == "laporan") {
+			if (value == 'laporan') {
 				this.panelbasemap = false;
 				this.panellaporan = !this.panellaporan;
 				this.panellegend = false;
@@ -51,7 +51,7 @@ export class PetaExistingComponent implements OnInit {
 				this.panelsearch = false;
 				this.panelshare = false;
 			}
-			if (value == "legend") {
+			if (value == 'legend') {
 				this.panelbasemap = false;
 				this.panellaporan = false;
 				this.panellegend = !this.panellegend;
@@ -59,7 +59,7 @@ export class PetaExistingComponent implements OnInit {
 				this.panelsearch = false;
 				this.panelshare = false;
 			}
-			if (value == "measure") {
+			if (value == 'measure') {
 				this.panelbasemap = false;
 				this.panellaporan = false;
 				this.panellegend = false;
@@ -67,15 +67,15 @@ export class PetaExistingComponent implements OnInit {
 				this.panelsearch = false;
 				this.panelshare = false;
 			}
-			if (value == "search") {
+			if (value == 'search') {
 				this.panelbasemap = false;
 				this.panellaporan = false;
 				this.panellegend = false;
-				this.panelmeasure = false
+				this.panelmeasure = false;
 				this.panelsearch = !this.panelsearch;
 				this.panelshare = false;
 			}
-			if (value == "share") {
+			if (value == 'share') {
 				this.panelshare = !this.panelshare;
 				this.panellaporan = false;
 				this.panellegend = false;
@@ -83,7 +83,7 @@ export class PetaExistingComponent implements OnInit {
 				this.panelsearch = false;
 				this.panelbasemap = false;
 			}
-    	});
+		});
 	}
 
 	ngOnInit() {
@@ -94,27 +94,49 @@ export class PetaExistingComponent implements OnInit {
 		// this._subcriptionMapCenter = this.mapStateService.execChange_locationpoint.subscribe((value) => {
 		// 	this.mapCenter = value;
 		// });
+		this.loadBasemapAndLegend();
 	}
 
 	// See app.component.html
-	async mapLoadedEvent(mapView: any) {
-		try {
-			const [EsriWidgetLegend, EsriWidgetBasemap] = await loadModules(["esri/widgets/Legend", "esri/widgets/BasemapGallery"]);
-			var legend = new EsriWidgetLegend({
-				view: mapView,
-				container: "legend"
-			  });
+	// async mapLoadedEvent(mapView: any) {
+	// 	try {
+	// 		const [EsriWidgetLegend, EsriWidgetBasemap] = await loadModules(["esri/widgets/Legend", "esri/widgets/BasemapGallery"]);
+	// 		var legend = new EsriWidgetLegend({
+	// 			view: mapView,
+	// 			container: "legend"
+	// 		  });
 
-			  var basemap = new EsriWidgetBasemap({
-				view: mapView,
-				container: "basemap"
-			  })
-		  } catch {}
+	// 		  var basemap = new EsriWidgetBasemap({
+	// 			view: mapView,
+	// 			container: "basemap"
+	// 		  })
+	// 	  } catch {}
+	// }
+	async loadBasemapAndLegend() {
+		try {
+			const [ EsriWidgetLegend, EsriWidgetBasemap ] = await loadModules([
+				'esri/widgets/Legend',
+				'esri/widgets/BasemapGallery'
+			]);
+			this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
+				var legend = new EsriWidgetLegend({
+					view: mapView,
+					container: 'legend'
+				});
+
+				var basemap = new EsriWidgetBasemap({
+					view: mapView,
+					container: 'basemap'
+				});
+			});
+		} catch (error) {
+			console.log('failed on loadBasemapAndLegend: ' + error);
+		}
 	}
 
 	togglePanel(panel: string) {
 		this.mapStateService.changePanelState(panel);
-	  }
+	}
 
 	// togglePanel() {
 	// 	this.opened = !this.opened;
