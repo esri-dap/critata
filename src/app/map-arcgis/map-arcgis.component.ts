@@ -127,7 +127,8 @@ export class MapArcgisComponent implements OnInit {
         EsriWidgetBasemap,
         EsriWidgetLocate,
         EsriWidgetHome,
-        EsriWidgetZoom
+        EsriWidgetZoom,
+        EsriWidgetPopup,
       ] = await loadModules([
         "esri/views/MapView",
         "esri/WebMap",
@@ -137,7 +138,8 @@ export class MapArcgisComponent implements OnInit {
         "esri/widgets/BasemapGallery",
         "esri/widgets/Locate",
         "esri/widgets/Home",
-        "esri/widgets/Zoom"
+        "esri/widgets/Zoom",
+        "esri/widgets/Popup"
       ]);
 
       const esriConfig: esri.config = EsriConfig;
@@ -209,6 +211,11 @@ export class MapArcgisComponent implements OnInit {
         container: "zoom"
       })
 
+      let popup = new EsriWidgetPopup({
+        view: esriMapView,
+        container: "popup"
+      })
+
       // esriMapView.on("click", (event) => {
       //   console.log("onclick", event);
       //   let {x, y} = EsriWebMercator.webMercatorToGeographic(esriMapView.toMap({x: event.x, y: event.y}))
@@ -226,13 +233,15 @@ export class MapArcgisComponent implements OnInit {
       //   }
       // });
 
-      esriMapView.on("click", evt => {
-        console.log(
-          esriMapView.popup.title,
-          esriMapView.popup.selectedFeature,
-          esriMapView.popup
-        );
-      });
+      // esriMapView.on("click", evt => {
+      //   // console.log(
+      //   //   esriMapView.popup.title,
+      //   //   esriMapView.popup.selectedFeature,
+      //   //   esriMapView.popup
+      //   // );
+        
+      // });
+
     } catch (error) {
       console.log("We have an error: " + error);
     }
