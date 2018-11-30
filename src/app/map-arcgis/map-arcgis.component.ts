@@ -315,12 +315,12 @@ export class MapArcgisComponent implements OnInit {
         view: esriMapView,
         container: "search",
         allPlaceholder: "Cari Lokasi, Bangunan, Kawasan, dll",
-        source: [
+        sources: [
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "https://tataruang.jakarta.go.id/server/rest/services/DCKTRP/dkctrp_pendataan_bangunan/FeatureServer/0",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["Lokasi Bangunan","Nama Bangunan","Nama Pengelola","Email Pengelola","Keterangan Tambahan"],
             displayField: "Nama bangunan",
             exactMatch: false,
@@ -333,10 +333,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "https://tataruang.jakarta.go.id/server/rest/services/peta_dasar/batas_ops/MapServer/0",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["ID_SUBBLOCK_NEW"],
             displayField: "ID_SUBBLOCK_NEW",
             exactMatch: false,
@@ -349,10 +349,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/Peta_Struktur_2018/MapServer/12",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["NAMA_JALAN","KETERANGAN"],
             displayField: "NAMA_JALAN",
             exactMatch: false,
@@ -365,10 +365,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/Peta_Struktur_2018/MapServer/3",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["NAMA_STASIUN"],
             displayField: "NAMA_STASIUN",
             exactMatch: false,
@@ -381,10 +381,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "https://tataruang.jakarta.go.id/server/rest/services/dsda/DSDA_peta_Rawan_Banjir/FeatureServer/0",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["NAMA_LOKAS"],
             displayField: "NAMA_LOKAS",
             exactMatch: false,
@@ -397,10 +397,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "https://tataruang.jakarta.go.id/server/rest/services/DCKTRP/UDGL/MapServer/0",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["nama_udgl"],
             displayField: "nama_udgl",
             exactMatch: false,
@@ -413,10 +413,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "http://jakartasatu.jakarta.go.id/server/rest/services/BPRD/q_bprd_master_pbb_pusat_edit/FeatureServer/0",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["D_NOP","D_NOP_2"],
             displayField: "D_NOP",
             exactMatch: false,
@@ -429,10 +429,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/pasardanperbelanjaan/FeatureServer/0",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["name", "address"],
             displayField: "name",
             exactMatch: false,
@@ -445,10 +445,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/cagarbudaya/MapServer/0",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["Nama","Alamat","Jenis","SK Ketetapan","Keterangan"],
             displayField: "Nama",
             exactMatch: false,
@@ -461,10 +461,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/pasardanperbelanjaan/FeatureServer/1",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["nama_pasar","alamat","klasifikasi","kota","kepala_pasar","no_telp","jenis_jualan","telepon_kantor"],
             displayField: "nama_pasar",
             exactMatch: false,
@@ -477,11 +477,11 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "http://jakartasatu.jakarta.go.id/server/rest/services/JakartaSatu/model_gab_rth/FeatureServer/0",
-              outFields: ["*"]
-            }),
-            searchFields: ["Nama Lahan","Keterangan","Jenis Object","Pembangunan RTH","No. Sertifikat Tanah","Kategori Aset","Pengelola Aset","Keterangan Kondisi Existing","Lokasi","Fungsi Lahan Existing","KIB (Kode Barang)","KIB (No Register)"],
+              
+            },
+            searchFields: ["NAMA", "Nama Lahan","Keterangan","Jenis Object","Pembangunan RTH","No. Sertifikat Tanah","Kategori Aset","Pengelola Aset","Keterangan Kondisi Existing","Lokasi","Fungsi Lahan Existing","KIB (Kode Barang)","KIB (No Register)"],
             displayField: "Nama Lahan",
             exactMatch: false,
             outFields: ["*"],
@@ -493,10 +493,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/TM_Aset_BGP/FeatureServer/0",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["pemanfaatan","Rincian Pemanfaatan,Keterangan","Nama Massa Bangunan","NAMA_BANGUNAN","PEMEGANG_KIBC","PEMANFAATAN_GEDUNG","ALAMAT"],
             displayField: "Nama Massa Bangunan",
             exactMatch: false,
@@ -509,10 +509,10 @@ export class MapArcgisComponent implements OnInit {
             minSuggestCharacters: 0
           },
           {
-            featureLayer: new EsriFeatureLayer({
+            featureLayer: {
               url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/TM_Aset_BGP/FeatureServer/1",
-              outFields: ["*"]
-            }),
+              
+            },
             searchFields: ["Nama Bangunan / Nama Kawasan","Nama Pemegang KIB C","pemanfaatan_gedung","Alamat","Keterangan"],
             displayField: "Nama Bangunan / Nama Kawasan",
             exactMatch: false,
@@ -524,21 +524,21 @@ export class MapArcgisComponent implements OnInit {
             suggestionsEnabled: true,
             minSuggestCharacters: 0
           },
-          {
-            locator: new EsriTaskLocator({ url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer" }),
-            singleLineFieldName: "SingleLine",
-            name: "ArcGIS World Geocoding Service",
-            localSearchOptions: {
-              minScale: 300000,
-              distance: 50000
-            },
-            countryCode: "ID",
-            placeholder: "Find address or place",
-            maxResults: 3,
-            maxSuggestions: 6,
-            suggestionsEnabled: false,
-            minSuggestCharacters: 0
-          }
+          // {
+          //   locator: new EsriTaskLocator({ url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer" }),
+          //   singleLineFieldName: "SingleLine",
+          //   name: "ArcGIS World Geocoding Service",
+          //   localSearchOptions: {
+          //     minScale: 300000,
+          //     distance: 50000
+          //   },
+          //   countryCode: "ID",
+          //   placeholder: "Find address or place",
+          //   maxResults: 3,
+          //   maxSuggestions: 6,
+          //   suggestionsEnabled: false,
+          //   minSuggestCharacters: 0
+          // }
         ]
       })
 
