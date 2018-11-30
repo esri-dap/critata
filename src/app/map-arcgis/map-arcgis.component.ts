@@ -120,6 +120,14 @@ export class MapArcgisComponent implements OnInit {
 
   async initializeMap() {
     try {
+      const dojo_options = {
+        // tell Dojo where to load other packages
+        dojoConfig: {
+          has: {
+            "esri-featurelayer-webgl": 1
+          }
+        }
+      };
       const [
         EsriMapView,
         EsriWebMap,
@@ -151,8 +159,8 @@ export class MapArcgisComponent implements OnInit {
         "esri/widgets/Popup",
         "esri/widgets/LayerList",
         "esri/widgets/Search",
-        "esri/PopupTemplate"
-      ]);
+        "esri/PopupTemplate",
+      ], dojo_options);
 
       const esriConfig: esri.config = EsriConfig;
 
