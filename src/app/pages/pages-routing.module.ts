@@ -40,7 +40,7 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
-      path: 'petaExisting',
+      path: 'petaRuang',
       component: PetaExistingComponent,
     },
     {
@@ -53,7 +53,7 @@ const routes: Routes = [{
     },
     {
       path: '',
-      redirectTo: 'petaExisting',
+      redirectTo: 'petaRuang',
       pathMatch: 'full',
     },
   ],

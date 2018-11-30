@@ -168,5 +168,9 @@ export class PetaExistingComponent implements OnInit {
 	// 	}
 	// }
 
+	mapLoadedEvent(status: boolean) {
+		console.log('The map loaded: ' + status);
+	  }
+
 	showPopup() {}
 }

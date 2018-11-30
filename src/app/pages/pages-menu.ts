@@ -41,7 +41,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Peta Existing Ruang Jakarta',
     icon: './../../assets/images/icons/ic_petaExisting_active@4x.png',
-    link: '/pages/petaExisting',
+    link: '/pages/petaRuang',
     home: true,
   },
   {
