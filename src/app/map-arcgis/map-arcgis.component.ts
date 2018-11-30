@@ -130,6 +130,7 @@ export class MapArcgisComponent implements OnInit {
         EsriWidgetHome,
         EsriWidgetZoom,
         EsriWidgetPopup,
+        EsriWidgetLayerList
       ] = await loadModules([
         "esri/views/MapView",
         "esri/WebMap",
@@ -140,7 +141,8 @@ export class MapArcgisComponent implements OnInit {
         "esri/widgets/Locate",
         "esri/widgets/Home",
         "esri/widgets/Zoom",
-        "esri/widgets/Popup"
+        "esri/widgets/Popup",
+        "esri/widgets/LayerList"
       ]);
 
       const esriConfig: esri.config = EsriConfig;
@@ -167,7 +169,17 @@ export class MapArcgisComponent implements OnInit {
         container: this.mapViewEl.nativeElement,
         // center: this._coordinate,
         zoom: this._zoom,
-        map: webmap
+        map: webmap,
+        popup: {
+          dockEnabled: true,
+          dockOptions: {
+            // Disables the dock button from the popup
+            buttonEnabled: false,
+            // Ignore the default sizes that trigger responsive docking
+            breakpoint: false,
+            position : "top-right"
+          }
+        }
       };
 
       const esriMapView: esri.MapView = new EsriMapView(mapViewProperties);
@@ -234,12 +246,17 @@ export class MapArcgisComponent implements OnInit {
       let zoom = new EsriWidgetZoom({
         view: esriMapView,
         container: "zoom"
-      })
+      });
 
       let popup = new EsriWidgetPopup({
         view: esriMapView,
         container: "popuppanel"
-      })
+      });
+
+      let layer = new EsriWidgetLayerList({
+        view: esriMapView,
+        container: "layer"
+      });
 
       // esriMapView.on("click", (event) => {
       //   console.log("onclick", event);
@@ -264,10 +281,8 @@ export class MapArcgisComponent implements OnInit {
       //   //   esriMapView.popup.selectedFeature,
       //   //   esriMapView.popup
       //   // );
-        
+
       // });
-
-
     } catch (error) {
       console.log("We have an error: " + error);
     }
