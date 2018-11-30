@@ -52,6 +52,7 @@ export class MapArcgisComponent implements OnInit {
   @ViewChild("mapViewNode") private mapViewEl: ElementRef;
 
   @Output() emitEsriMapView = new EventEmitter();
+  @Output() emitPopupData = new EventEmitter<boolean>();
 
   /**
    * @private _zoom sets map zoom
@@ -130,7 +131,8 @@ export class MapArcgisComponent implements OnInit {
         EsriWidgetHome,
         EsriWidgetZoom,
         EsriWidgetPopup,
-        EsriWidgetLayerList
+        EsriWidgetLayerList,
+        EsriPopupTemplate
       ] = await loadModules([
         "esri/views/MapView",
         "esri/WebMap",
@@ -142,7 +144,8 @@ export class MapArcgisComponent implements OnInit {
         "esri/widgets/Home",
         "esri/widgets/Zoom",
         "esri/widgets/Popup",
-        "esri/widgets/LayerList"
+        "esri/widgets/LayerList",
+        "esri/PopupTemplate"
       ]);
 
       const esriConfig: esri.config = EsriConfig;
@@ -196,31 +199,71 @@ export class MapArcgisComponent implements OnInit {
         this.mapLoaded.emit(true);
         // this.emitEsriMapView.emit(esriMapView);
         this.mapStateService.stateEsriMapView(esriMapView);
-        // esriMapView.goTo
+
         esriMapView.on('click', (evt) => {
-          this.mapStateService.changePanelState("popup");
-          evt.stopPropagation();
-  
-          // Make sure that there is a valid latitude/longitude
+          // evt.stopPropagation();
+          console.log("evt", evt);
+          // this.mapViewEl.nativeElement.click()
+          
           if (evt && evt.mapPoint) {
-            // Create lat/lon vars to display in popup title
-            var lat = Math.round(evt.mapPoint.latitude * 1000) / 1000;
-            var lon = Math.round(evt.mapPoint.longitude * 1000) / 1000;
-  
-            esriMapView.popup.open({
-              // Set the popup's title to the coordinates of the location
-              title: 'Map view coordinates: [' + lon + ', ' + lat + ']',
-              location: evt.mapPoint, // Set the location of the popup to the clicked location
-            });
-          } else {
-            esriMapView.popup.open({
-              // Set the popup's title to the coordinates of the location
-              title: 'Invalid point location',
-              location: evt.mapPoint, // Set the location of the popup to the clicked location
-              content: 'Please click on a valid location.'
-            });
+            // console.log("p-title", esriMapView.popup.get("title"));
+
+            esriMapView.popup.watch("selectedFeature", evt_popup => {
+              if (evt_popup) {
+                console.log("watch-epop", evt_popup);
+                this.emitPopupData.emit(true);
+                this.mapStateService.changePopupData(evt_popup);
+              }
+            })
+
+            // console.log("popup-title", esriMapView.popup.title);
+            // console.log("popup-content", esriMapView.popup.content);
+            // console.log("popup-features", esriMapView.popup.features);
           }
         });
+
+        // esriMapView.goTo
+        // esriMapView.on('click', (evt) => {
+        //   this.mapStateService.changePanelState("popup");
+        //   evt.stopPropagation();
+
+        //   console.log("evt-click", evt);
+          
+  
+        //   // Make sure that there is a valid latitude/longitude
+        //   // if (evt && evt.mapPoint) {
+        //   //   // Create lat/lon vars to display in popup title
+        //   //   var lat = Math.round(evt.mapPoint.latitude * 1000) / 1000;
+        //   //   var lon = Math.round(evt.mapPoint.longitude * 1000) / 1000;
+  
+        //   //   esriMapView.popup.open({
+
+        //   //     // var template = new EsriPopupTemplate({
+        //   //     //   title: 
+        //   //     // })
+
+        //   //     // Set the popup's title to the coordinates of the location
+        //   //     title: 'Map view coordinates: [' + lon + ', ' + lat + ']',
+        //   //     location: evt.mapPoint, // Set the location of the popup to the clicked location
+        //   //     // content: setContentInfo(
+        //   //     //   esriMapView.center,
+        //   //     //   esriMapView.scale
+        //   //     // ),
+        //   //   });
+        //   // } else {
+        //   //   esriMapView.popup.open({
+        //   //     // Set the popup's title to the coordinates of the location
+        //   //     title: 'Invalid point location',
+        //   //     location: evt.mapPoint, // Set the location of the popup to the clicked location
+        //   //     content: 'Please click on a valid location.'
+        //   //   });
+        //   // }
+
+        //   // function setContentInfo(center, scale) {
+        //   //   var popupDiv = document.getElementById("popuppanel")
+
+        //   // }
+        // });
       });
 
       let legend = new EsriWidgetLegend({
