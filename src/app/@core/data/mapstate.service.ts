@@ -16,7 +16,15 @@ export class MapStateService {
 
 	listeners_esriMapView: Subject<any> = new Subject<any>();
 
-	changePopupData(data: any) {
+	// changePopupData(data: any) {
+	// 	this.exexChange_popupData.next(data);
+	// }
+
+	listen_popupData(): Observable<any> {
+		return this.exexChange_popupData.asObservable();
+	}
+
+	update_popupData(data: any) {
 		this.exexChange_popupData.next(data);
 	}
 

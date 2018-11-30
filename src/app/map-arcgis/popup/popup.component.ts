@@ -21,14 +21,16 @@ export class MapPopupComponent implements OnInit {
   }
 
   loadPopup() {
-    this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
+    // this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
+      
+    // });
+
+    this.mapStateService.listen_popupData().subscribe((popupData: any) => {
+      console.log("comp-popupdata", popupData);
       
     });
-    this._subscriptionPopupData = this.mapStateService.exexChange_popupData.subscribe((data) => {
-        this.popupData = data;
-        console.log("popupData", this.popupData);
-        
-      });
+
+    
   }
 
   emitPopupDataEvent(status: boolean) {

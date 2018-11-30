@@ -36,6 +36,16 @@ export class PetaExistingComponent implements OnInit {
 		// });
 		this._subscriptionPanelState = this.mapStateService.execChange_panelState.subscribe((value) => {
 			this.panelState = value;
+			if (value == 'none') {
+				this.panelshare = false
+				this.panellaporan = false;
+				this.panellegend = false;
+				this.panelmeasure = false;
+				this.panelsearch = false;
+				this.panelbasemap = false;
+				this.panellayercontrol = false;
+				this.panelpopup = false;
+			}
 			if (value == 'basemap') {
 				this.panelbasemap = !this.panelbasemap;
 				this.panellaporan = false;

@@ -174,13 +174,15 @@ export class MapArcgisComponent implements OnInit {
         zoom: this._zoom,
         map: webmap,
         popup: {
+          visible: false,
           dockEnabled: true,
           dockOptions: {
             // Disables the dock button from the popup
             buttonEnabled: false,
             // Ignore the default sizes that trigger responsive docking
             breakpoint: false,
-            position : "top-right"
+            position : "bottom-right",
+            
           }
         }
       };
@@ -201,6 +203,7 @@ export class MapArcgisComponent implements OnInit {
         this.mapStateService.stateEsriMapView(esriMapView);
 
         esriMapView.on('click', (evt) => {
+          this.mapStateService.changePanelState("none")
           // evt.stopPropagation();
           console.log("evt", evt);
           // this.mapViewEl.nativeElement.click()
@@ -209,10 +212,11 @@ export class MapArcgisComponent implements OnInit {
             // console.log("p-title", esriMapView.popup.get("title"));
 
             esriMapView.popup.watch("selectedFeature", evt_popup => {
+              this.mapStateService.changePanelState("popup")
+              this.mapStateService.update_popupData(evt_popup);
               if (evt_popup) {
                 console.log("watch-epop", evt_popup);
                 this.emitPopupData.emit(true);
-                this.mapStateService.changePopupData(evt_popup);
               }
             })
 
