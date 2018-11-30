@@ -63,7 +63,7 @@ export class MapArcgisComponent implements OnInit {
   private _center: Array<number> = [-6.175642711255031, 106.8251880714399];
   private _basemap: string = "streets";
   private _webmap: string = "a762c0e234a94af99cf8c2a0c835f7d4";
-  private _coordinate: Array<number> = [null, null]
+  private _coordinate: Array<number> = [null, null];
   // esriMapView: any;
 
   _subcriptionMapCenter: any;
@@ -187,8 +187,7 @@ export class MapArcgisComponent implements OnInit {
             buttonEnabled: false,
             // Ignore the default sizes that trigger responsive docking
             breakpoint: false,
-            position : "bottom-right",
-            
+            position: "bottom-right"
           }
         }
       };
@@ -208,23 +207,23 @@ export class MapArcgisComponent implements OnInit {
         // this.emitEsriMapView.emit(esriMapView);
         this.mapStateService.stateEsriMapView(esriMapView);
 
-        esriMapView.on('click', (evt) => {
-          this.mapStateService.changePanelState("none")
+        esriMapView.on("click", evt => {
+          this.mapStateService.changePanelState("none");
           // evt.stopPropagation();
           console.log("evt", evt);
           // this.mapViewEl.nativeElement.click()
-          
+
           if (evt && evt.mapPoint) {
             // console.log("p-title", esriMapView.popup.get("title"));
 
             esriMapView.popup.watch("selectedFeature", evt_popup => {
-              this.mapStateService.changePanelState("popup")
+              this.mapStateService.changePanelState("popup");
               this.mapStateService.update_popupData(evt_popup);
               if (evt_popup) {
                 console.log("watch-epop", evt_popup);
                 this.emitPopupData.emit(true);
               }
-            })
+            });
 
             // console.log("popup-title", esriMapView.popup.title);
             // console.log("popup-content", esriMapView.popup.content);
@@ -238,18 +237,17 @@ export class MapArcgisComponent implements OnInit {
         //   evt.stopPropagation();
 
         //   console.log("evt-click", evt);
-          
-  
+
         //   // Make sure that there is a valid latitude/longitude
         //   // if (evt && evt.mapPoint) {
         //   //   // Create lat/lon vars to display in popup title
         //   //   var lat = Math.round(evt.mapPoint.latitude * 1000) / 1000;
         //   //   var lon = Math.round(evt.mapPoint.longitude * 1000) / 1000;
-  
+
         //   //   esriMapView.popup.open({
 
         //   //     // var template = new EsriPopupTemplate({
-        //   //     //   title: 
+        //   //     //   title:
         //   //     // })
 
         //   //     // Set the popup's title to the coordinates of the location
@@ -318,63 +316,71 @@ export class MapArcgisComponent implements OnInit {
         sources: [
           {
             featureLayer: {
-              url: "https://tataruang.jakarta.go.id/server/rest/services/DCKTRP/dkctrp_pendataan_bangunan/FeatureServer/0",
-              
+              url:
+                "https://tataruang.jakarta.go.id/server/rest/services/DCKTRP/dkctrp_pendataan_bangunan/FeatureServer/0"
             },
-            searchFields: ["Lokasi Bangunan","Nama Bangunan","Nama Pengelola","Email Pengelola","Keterangan Tambahan"],
-            displayField: "Nama bangunan",
+            searchFields: [
+              "LOKASI",
+              "NAMA_BANGUNAN",
+              "PENGELOLA_NAMA",
+              "EMAIL",
+              "KETERANGAN"
+            ],
+            displayField: "NAMA_BANGUNAN",
             exactMatch: false,
             outFields: ["*"],
             name: "Peta Bangunan",
-            // placeholder: "example: esri",
+            placeholder: "Cari peta bangunan",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
-            minSuggestCharacters: 0
+            minSuggestCharacters: 0,
+            suggestionTemplate: "{NAMA_BANGUNAN} di {LOKASI}"
           },
           {
             featureLayer: {
-              url: "https://tataruang.jakarta.go.id/server/rest/services/peta_dasar/batas_ops/MapServer/0",
-              
+              url:
+                "https://tataruang.jakarta.go.id/server/rest/services/peta_dasar/batas_ops/MapServer/0"
             },
             searchFields: ["ID_SUBBLOCK_NEW"],
             displayField: "ID_SUBBLOCK_NEW",
             exactMatch: false,
             outFields: ["*"],
             name: "Batas Subblock Zonasi",
-            // placeholder: "example: esri",
+            placeholder: "Cari batas sublock zonasi",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
-            minSuggestCharacters: 0
+            minSuggestCharacters: 0,
           },
           {
             featureLayer: {
-              url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/Peta_Struktur_2018/MapServer/12",
-              
+              url:
+                "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/Peta_Struktur_2018/MapServer/12"
             },
-            searchFields: ["NAMA_JALAN","KETERANGAN"],
+            searchFields: ["NAMA_JALAN", "KETERANGAN"],
             displayField: "NAMA_JALAN",
             exactMatch: false,
             outFields: ["*"],
             name: "Jalan Jakarta",
-            // placeholder: "example: esri",
+            placeholder: "Cari jalan Jakarta",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
-            minSuggestCharacters: 0
+            minSuggestCharacters: 0,
+            suggestionTemplate: "{NAMA_JALAN} ({KETERANGAN})"
           },
           {
             featureLayer: {
-              url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/Peta_Struktur_2018/MapServer/3",
-              
+              url:
+                "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/Peta_Struktur_2018/MapServer/3"
             },
             searchFields: ["NAMA_STASIUN"],
             displayField: "NAMA_STASIUN",
             exactMatch: false,
             outFields: ["*"],
             name: "Stasiun Kereta Api",
-            // placeholder: "example: esri",
+            placeholder: "Cari stasiun kereta api",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
@@ -382,15 +388,15 @@ export class MapArcgisComponent implements OnInit {
           },
           {
             featureLayer: {
-              url: "https://tataruang.jakarta.go.id/server/rest/services/dsda/DSDA_peta_Rawan_Banjir/FeatureServer/0",
-              
+              url:
+                "https://tataruang.jakarta.go.id/server/rest/services/dsda/DSDA_peta_Rawan_Banjir/FeatureServer/0"
             },
             searchFields: ["NAMA_LOKAS"],
             displayField: "NAMA_LOKAS",
             exactMatch: false,
             outFields: ["*"],
             name: "Kawasan Rawan Banjir",
-            // placeholder: "example: esri",
+            placeholder: "Cari kawasan rawan banjir",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
@@ -398,15 +404,15 @@ export class MapArcgisComponent implements OnInit {
           },
           {
             featureLayer: {
-              url: "https://tataruang.jakarta.go.id/server/rest/services/DCKTRP/UDGL/MapServer/0",
-              
+              url:
+                "https://tataruang.jakarta.go.id/server/rest/services/DCKTRP/UDGL/MapServer/0"
             },
-            searchFields: ["nama_udgl"],
-            displayField: "nama_udgl",
+            searchFields: ["NAMA_UDGL"],
+            displayField: "NAMA_UDGL",
             exactMatch: false,
             outFields: ["*"],
             name: "Panduan Rancang Bangun Kota",
-            // placeholder: "example: esri",
+            placeholder: "Cari panduan rancang bangun kota",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
@@ -414,15 +420,15 @@ export class MapArcgisComponent implements OnInit {
           },
           {
             featureLayer: {
-              url: "http://jakartasatu.jakarta.go.id/server/rest/services/BPRD/q_bprd_master_pbb_pusat_edit/FeatureServer/0",
-              
+              url:
+                "http://jakartasatu.jakarta.go.id/server/rest/services/BPRD/q_bprd_master_pbb_pusat_edit/FeatureServer/0"
             },
-            searchFields: ["D_NOP","D_NOP_2"],
+            searchFields: ["D_NOP", "D_NOP_2"],
             displayField: "D_NOP",
             exactMatch: false,
             outFields: ["*"],
             name: "PBB - Nomor Objek Pajak",
-            // placeholder: "example: esri",
+            placeholder: "Cari nomor objek pajak (PBB)",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
@@ -430,63 +436,95 @@ export class MapArcgisComponent implements OnInit {
           },
           {
             featureLayer: {
-              url: "https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/pasardanperbelanjaan/FeatureServer/0",
-              
+              url:
+                "https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/pasardanperbelanjaan/FeatureServer/0"
             },
-            searchFields: ["name", "address"],
-            displayField: "name",
+            searchFields: ["NAME", "ADDRESS"],
+            displayField: "NAME",
             exactMatch: false,
             outFields: ["*"],
             name: "Pusat Perbelanjaan",
-            // placeholder: "example: esri",
+            placeholder: "Cari pusat perbelanjaan",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
-            minSuggestCharacters: 0
+            minSuggestCharacters: 0,
+            suggestionTemplate: "{NAME} di {ADDRESS}"
           },
           {
             featureLayer: {
-              url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/cagarbudaya/MapServer/0",
-              
+              url:
+                "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/cagarbudaya/MapServer/0"
             },
-            searchFields: ["Nama","Alamat","Jenis","SK Ketetapan","Keterangan"],
-            displayField: "Nama",
+            searchFields: [
+              "NAME",
+              "ALAMAT___L",
+              "JENIS_CAGA",
+              "SK_KETETAP",
+              "KETERANGAN"
+            ],
+            displayField: "NAME",
             exactMatch: false,
             outFields: ["*"],
             name: "Cagar Budaya",
-            // placeholder: "example: esri",
+            placeholder: "Cari cagar budaya",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
-            minSuggestCharacters: 0
+            minSuggestCharacters: 0,
+            suggestionTemplate: "{NAME}, jenis: {JENIS_CAGA}"
+
           },
           {
             featureLayer: {
-              url: "https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/pasardanperbelanjaan/FeatureServer/1",
-              
+              url:
+                "https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/pasardanperbelanjaan/FeatureServer/1"
             },
-            searchFields: ["nama_pasar","alamat","klasifikasi","kota","kepala_pasar","no_telp","jenis_jualan","telepon_kantor"],
-            displayField: "nama_pasar",
+            searchFields: [
+              "NAMA_PASAR",
+              "ALAMAT",
+              "KLASIFIKASI",
+              "KOTA",
+              "KEPALA_PASAR",
+              "NO_TELP",
+              "JENIS_JUALAN",
+              "TELEPON_KANTOR"
+            ],
+            displayField: "NAMA_PASAR",
             exactMatch: false,
             outFields: ["*"],
             name: "Pasar Tradisional (PD Pasar Jaya)",
-            // placeholder: "example: esri",
+            placeholder: "Cari pasar tradisional",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
-            minSuggestCharacters: 0
+            minSuggestCharacters: 0,
+            suggestionTemplate: "{NAMA_PASAR}, klasifikasi: {KLASIFIKASI}"
           },
           {
             featureLayer: {
-              url: "http://jakartasatu.jakarta.go.id/server/rest/services/JakartaSatu/model_gab_rth/FeatureServer/0",
-              
+              url:
+                "http://jakartasatu.jakarta.go.id/server/rest/services/JakartaSatu/model_gab_rth/FeatureServer/0"
             },
-            searchFields: ["NAMA", "Nama Lahan","Keterangan","Jenis Object","Pembangunan RTH","No. Sertifikat Tanah","Kategori Aset","Pengelola Aset","Keterangan Kondisi Existing","Lokasi","Fungsi Lahan Existing","KIB (Kode Barang)","KIB (No Register)"],
-            displayField: "Nama Lahan",
+            searchFields: [
+              "NAMA",
+              "KETERANGAN",
+              "JENIS_OBJECT",
+              "PEMBANGUNAN_RTH",
+              "NO_SERTIFIKAT",
+              "KATEGORI_ASET",
+              "PENGELOLA",
+              "KET_KONDISI_EXISTING",
+              "ALAMAT",
+              "FUNGSI_LAHAN",
+              "KIB_KODE_BARANG",
+              "KIB_NO_REGISTER"
+            ],
+            displayField: "NAMA",
             exactMatch: false,
             outFields: ["*"],
             name: "Ruang Terbuka Hijau Aset Pemda DKI Jakarta",
-            // placeholder: "example: esri",
+            placeholder: "cari RTH pemda Jakarta",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
@@ -494,15 +532,23 @@ export class MapArcgisComponent implements OnInit {
           },
           {
             featureLayer: {
-              url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/TM_Aset_BGP/FeatureServer/0",
-              
+              url:
+                "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/TM_Aset_BGP/FeatureServer/0"
             },
-            searchFields: ["pemanfaatan","Rincian Pemanfaatan,Keterangan","Nama Massa Bangunan","NAMA_BANGUNAN","PEMEGANG_KIBC","PEMANFAATAN_GEDUNG","ALAMAT"],
-            displayField: "Nama Massa Bangunan",
+            searchFields: [
+              "PEMANFAATAN",
+              "KETPEMANFAATAN",
+              "MASSABANGUNAN",
+              "NAMA_BANGUNAN",
+              "PEMEGANG_KIBC",
+              "PEMANFAATAN_GEDUNG",
+              "ALAMAT"
+            ],
+            displayField: "MASSABANGUNAN",
             exactMatch: false,
             outFields: ["*"],
             name: "Bangunan Aset Pemda DKI Jakarta",
-            // placeholder: "example: esri",
+            placeholder: "Cari bangunan aset pemda Jakarta",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
@@ -510,20 +556,26 @@ export class MapArcgisComponent implements OnInit {
           },
           {
             featureLayer: {
-              url: "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/TM_Aset_BGP/FeatureServer/1",
-              
+              url:
+                "http://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/TM_Aset_BGP/FeatureServer/1"
             },
-            searchFields: ["Nama Bangunan / Nama Kawasan","Nama Pemegang KIB C","pemanfaatan_gedung","Alamat","Keterangan"],
+            searchFields: [
+              "NAMA_BANGUNAN",
+              "PEMEGANG_KIBC",
+              "PEMANFAATAN_GEDUNG",
+              "ALAMAT",
+              "KETERANGAN"
+            ],
             displayField: "Nama Bangunan / Nama Kawasan",
             exactMatch: false,
             outFields: ["*"],
             name: "Lahan Aset Pemda DKI Jakarta",
-            // placeholder: "example: esri",
+            placeholder: "cari lahan aset pemda Jakarta",
             maxResults: 10,
             maxSuggestions: 6,
             suggestionsEnabled: true,
             minSuggestCharacters: 0
-          },
+          }
           // {
           //   locator: new EsriTaskLocator({ url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer" }),
           //   singleLineFieldName: "SingleLine",
@@ -540,7 +592,7 @@ export class MapArcgisComponent implements OnInit {
           //   minSuggestCharacters: 0
           // }
         ]
-      })
+      });
 
       // esriMapView.on("click", (event) => {
       //   console.log("onclick", event);
