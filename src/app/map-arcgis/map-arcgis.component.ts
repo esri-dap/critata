@@ -331,6 +331,11 @@ export class MapArcgisComponent implements OnInit {
         view: esriMapView,
         container: "search",
         allPlaceholder: "Cari Lokasi, Bangunan, Kawasan, dll",
+        includeDefaultSources: false,
+        suggestionDelay: 0,
+        maxSuggestions: 100,
+        minSuggestCharacters: 0,
+        suggestionsEnabled: true,
         sources: [
           {
             featureLayer: {
@@ -349,10 +354,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Peta Bangunan",
             placeholder: "Cari peta bangunan",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0,
             suggestionTemplate: "{NAMA_BANGUNAN} di {LOKASI}"
           },
           {
@@ -366,10 +367,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Batas Subblock Zonasi",
             placeholder: "Cari batas sublock zonasi",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0,
           },
           {
             featureLayer: {
@@ -382,10 +379,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Jalan Jakarta",
             placeholder: "Cari jalan Jakarta",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0,
             suggestionTemplate: "{NAMA_JALAN} ({KETERANGAN})"
           },
           {
@@ -399,10 +392,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Stasiun Kereta Api",
             placeholder: "Cari stasiun kereta api",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0
           },
           {
             featureLayer: {
@@ -415,10 +404,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Kawasan Rawan Banjir",
             placeholder: "Cari kawasan rawan banjir",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0
           },
           {
             featureLayer: {
@@ -431,10 +416,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Panduan Rancang Bangun Kota",
             placeholder: "Cari panduan rancang bangun kota",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0
           },
           {
             featureLayer: {
@@ -447,10 +428,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "PBB - Nomor Objek Pajak",
             placeholder: "Cari nomor objek pajak (PBB)",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0
           },
           {
             featureLayer: {
@@ -463,10 +440,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Pusat Perbelanjaan",
             placeholder: "Cari pusat perbelanjaan",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0,
             suggestionTemplate: "{NAME} di {ADDRESS}"
           },
           {
@@ -486,10 +459,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Cagar Budaya",
             placeholder: "Cari cagar budaya",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0,
             suggestionTemplate: "{NAME}, jenis: {JENIS_CAGA}"
 
           },
@@ -513,10 +482,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Pasar Tradisional (PD Pasar Jaya)",
             placeholder: "Cari pasar tradisional",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0,
             suggestionTemplate: "{NAMA_PASAR}, klasifikasi: {KLASIFIKASI}"
           },
           {
@@ -543,10 +508,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Ruang Terbuka Hijau Aset Pemda DKI Jakarta",
             placeholder: "cari RTH pemda Jakarta",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0
           },
           {
             featureLayer: {
@@ -567,10 +528,6 @@ export class MapArcgisComponent implements OnInit {
             outFields: ["*"],
             name: "Bangunan Aset Pemda DKI Jakarta",
             placeholder: "Cari bangunan aset pemda Jakarta",
-            maxResults: 10,
-            maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0
           },
           {
             featureLayer: {
@@ -591,8 +548,6 @@ export class MapArcgisComponent implements OnInit {
             placeholder: "cari lahan aset pemda Jakarta",
             maxResults: 10,
             maxSuggestions: 6,
-            suggestionsEnabled: true,
-            minSuggestCharacters: 0
           }
           // {
           //   locator: new EsriTaskLocator({ url: "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer" }),
