@@ -224,14 +224,24 @@ export class MapArcgisComponent implements OnInit {
           if (evt && evt.mapPoint) {
             // console.log("p-title", esriMapView.popup.get("title"));
 
-            esriMapView.popup.watch("selectedFeature", evt_popup => {
-              this.mapStateService.changePanelState("popup");
-              this.mapStateService.update_popupData(evt_popup);
-              if (evt_popup) {
-                console.log("watch-epop", evt_popup);
+            esriMapView.popup.watch("features", evtPop_AllFeatures => {
+              // console.log("watch-e-pop-features", evtPop_AllFeatures);
+              if (evtPop_AllFeatures) {
+                console.log("watch-e-pop-features", evtPop_AllFeatures);
                 this.emitPopupData.emit(true);
+                this.mapStateService.changePanelState("popup");
+                this.mapStateService.update_popupData(evtPop_AllFeatures);
               }
             });
+
+            // esriMapView.popup.watch("selectedFeature", evt_popup => {
+            //   this.mapStateService.changePanelState("popup");
+            //   this.mapStateService.update_popupData(evt_popup);
+            //   if (evt_popup) {
+            //     console.log("watch-epop", evt_popup);
+            //     this.emitPopupData.emit(true);
+            //   }
+            // });
 
             // console.log("popup-title", esriMapView.popup.title);
             // console.log("popup-content", esriMapView.popup.content);
@@ -599,7 +609,7 @@ export class MapArcgisComponent implements OnInit {
           //   suggestionsEnabled: false,
           //   minSuggestCharacters: 0
           // }
-        ]
+        ],
       });
 
       // esriMapView.on("click", (event) => {

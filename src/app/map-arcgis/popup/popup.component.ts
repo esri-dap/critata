@@ -27,6 +27,7 @@ export class MapPopupComponent implements OnInit {
 
     this.mapStateService.listen_popupData().subscribe((popupData: any) => {
       console.log("comp-popupdata", popupData);
+      // console.log("popupdata-access", popupData.attributes);
       
     });
 
