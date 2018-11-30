@@ -61,11 +61,12 @@ export class MapArcgisComponent implements OnInit {
   private _zoom: number = 15;
   private _center: Array<number> = [-6.175642711255031, 106.8251880714399];
   private _basemap: string = "streets";
-  private _webmap: string = "0e9ca7fffb2f44f1a9433e80aa0223da";
+  private _webmap: string = "a762c0e234a94af99cf8c2a0c835f7d4";
   private _coordinate: Array<number> = [null, null]
   // esriMapView: any;
 
   _subcriptionMapCenter: any;
+  _subscriptionMapPopup: any;
 
   @Input()
   set zoom(zoom: number) {
@@ -184,6 +185,30 @@ export class MapArcgisComponent implements OnInit {
         // this.emitEsriMapView.emit(esriMapView);
         this.mapStateService.stateEsriMapView(esriMapView);
         // esriMapView.goTo
+        esriMapView.on('click', (evt) => {
+          this.mapStateService.changePanelState("popup");
+          evt.stopPropagation();
+  
+          // Make sure that there is a valid latitude/longitude
+          if (evt && evt.mapPoint) {
+            // Create lat/lon vars to display in popup title
+            var lat = Math.round(evt.mapPoint.latitude * 1000) / 1000;
+            var lon = Math.round(evt.mapPoint.longitude * 1000) / 1000;
+  
+            esriMapView.popup.open({
+              // Set the popup's title to the coordinates of the location
+              title: 'Map view coordinates: [' + lon + ', ' + lat + ']',
+              location: evt.mapPoint, // Set the location of the popup to the clicked location
+            });
+          } else {
+            esriMapView.popup.open({
+              // Set the popup's title to the coordinates of the location
+              title: 'Invalid point location',
+              location: evt.mapPoint, // Set the location of the popup to the clicked location
+              content: 'Please click on a valid location.'
+            });
+          }
+        });
       });
 
       let legend = new EsriWidgetLegend({
@@ -213,7 +238,7 @@ export class MapArcgisComponent implements OnInit {
 
       let popup = new EsriWidgetPopup({
         view: esriMapView,
-        container: "popup"
+        container: "popuppanel"
       })
 
       // esriMapView.on("click", (event) => {
@@ -241,6 +266,7 @@ export class MapArcgisComponent implements OnInit {
       //   // );
         
       // });
+
 
     } catch (error) {
       console.log("We have an error: " + error);

@@ -13,7 +13,7 @@ export class PetaExistingComponent implements OnInit {
 	mapCenter = [ -6.175, 106.825 ];
 	basemapType = 'satellite';
 	mapZoomLevel = 15;
-	webmapId = '0e9ca7fffb2f44f1a9433e80aa0223da';
+	webmapId = 'a762c0e234a94af99cf8c2a0c835f7d4';
 	// coordinate = [null, null];
 
 	_subscriptionPanelState: any;
@@ -114,32 +114,11 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelshare = false;
-				this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
-					this.panelpopup = !this.panelpopup;
-					mapView.on('click', (evt) => {
-						evt.stopPropagation();
-
-						// Make sure that there is a valid latitude/longitude
-						if (evt && evt.mapPoint) {
-							// Create lat/lon vars to display in popup title
-							var lat = Math.round(evt.mapPoint.latitude * 1000) / 1000;
-							var lon = Math.round(evt.mapPoint.longitude * 1000) / 1000;
-
-							mapView.popup.open({
-								// Set the popup's title to the coordinates of the location
-								title: 'Map view coordinates: [' + lon + ', ' + lat + ']',
-								location: evt.mapPoint, // Set the location of the popup to the clicked location
-							});
-						} else {
-							mapView.popup.open({
-								// Set the popup's title to the coordinates of the location
-								title: 'Invalid point location',
-								location: evt.mapPoint, // Set the location of the popup to the clicked location
-								content: 'Please click on a valid location.'
-							});
-						}
-					});
-				});
+				this.panelpopup = true;
+				// this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
+				// 	this.panelpopup = !this.panelpopup;
+					
+				// });
 			}
 		});
 	}

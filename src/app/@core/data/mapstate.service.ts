@@ -7,6 +7,7 @@ export class MapStateService {
 	execChange_footertitle: Subject<any> = new Subject<any>();
 	execChange_locationpoint: Subject<any> = new Subject<any>();
 	execChange_panelState: Subject<any> = new Subject<any>();
+	execChange_popupState: Subject<any> = new Subject<any>();
 
 	coordinates: Array<number> = [null, null];
 	panelOpened: string;
@@ -41,5 +42,9 @@ export class MapStateService {
 	changePanelState(data: string) {
 		this.execChange_panelState.next(data);
 		this.panelOpened = data;
+	}
+
+	changePopupState(data: any) {
+		this.execChange_popupState.next(data);
 	}
 }
