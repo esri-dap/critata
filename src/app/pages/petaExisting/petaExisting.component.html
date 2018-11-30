@@ -34,9 +34,9 @@
       <img src="../../../assets/images/icons/ic_widget_search@4x.png">
       <span>PENCARIAN</span>
     </button>
-    <button (click)='togglePanel("measure")' class="btn-widget measure">
-      <img src="../../../assets/images/icons/ic_widget_measurement@4x.png">
-      <span>PENGUKURAN</span>
+    <button (click)='togglePanel("layercontrol")' class="btn-widget measure">
+      <img src="../../../assets/images/icons/ic_widget_layers@4x.png">
+      <span>LAYERS</span>
     </button>
   </div>
 </div>
@@ -53,3 +53,7 @@
 </map-search>
 <map-measure [ngClass]="{hide: !panelmeasure}">
 </map-measure>
+<map-popup [ngClass]="{hide: !panelpopup}">
+</map-popup>
+<map-layercontrol [ngClass]="{hide: !panellayercontrol}">
+</map-layercontrol>

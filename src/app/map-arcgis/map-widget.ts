@@ -1,5 +1,6 @@
 export * from './basemap/basemap.component';
 export * from './laporan/laporan.component';
+export * from './layercontrol/layercontrol.component';
 export * from './legend/legend.component';
 export * from './measure/measure.component';
 export * from './popup/popup.component';

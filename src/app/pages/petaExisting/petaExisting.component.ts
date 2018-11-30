@@ -24,6 +24,7 @@ export class PetaExistingComponent implements OnInit {
 	panelsearch: Boolean = false;
 	panelshare: Boolean = false;
 	panelpopup: Boolean = false;
+	panellayercontrol: Boolean = false;
 
 	panelState: string;
 
@@ -42,6 +43,8 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelshare = false;
+				this.panellayercontrol = false
+				this.panelpopup = false;
 			}
 			if (value == 'laporan') {
 				this.panelbasemap = false;
@@ -50,6 +53,8 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelshare = false;
+				this.panellayercontrol = false
+				this.panelpopup = false;
 			}
 			if (value == 'legend') {
 				this.panelbasemap = false;
@@ -58,6 +63,8 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelshare = false;
+				this.panellayercontrol = false
+				this.panelpopup = false;
 			}
 			if (value == 'measure') {
 				this.panelbasemap = false;
@@ -66,6 +73,8 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = !this.panelmeasure;
 				this.panelsearch = false;
 				this.panelshare = false;
+				this.panellayercontrol = false
+				this.panelpopup = false;
 			}
 			if (value == 'search') {
 				this.panelbasemap = false;
@@ -74,6 +83,8 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = !this.panelsearch;
 				this.panelshare = false;
+				this.panellayercontrol = false
+				this.panelpopup = false;
 			}
 			if (value == 'share') {
 				this.panelshare = !this.panelshare;
@@ -82,6 +93,19 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelbasemap = false;
+				this.panelpopup = false;
+				this.panellayercontrol = false
+				this.panelpopup = false;
+			}
+			if (value == 'layercontrol') {
+				this.panelshare = false
+				this.panellaporan = false;
+				this.panellegend = false;
+				this.panelmeasure = false;
+				this.panelsearch = false;
+				this.panelbasemap = false;
+				this.panellayercontrol = !this.panellayercontrol
+				this.panelpopup = false;
 			}
 			if (value == 'popup') {
 				this.panelbasemap = false;
@@ -90,8 +114,8 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelshare = false;
-				this.panelpopup = !this.panelpopup;
 				this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
+					this.panelpopup = !this.panelpopup;
 					mapView.on('click', (evt) => {
 						evt.stopPropagation();
 

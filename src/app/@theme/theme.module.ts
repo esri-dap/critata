@@ -14,6 +14,7 @@ import {
   MapSearchComponent,
   MapShareComponent,
   MapPopupComponent,
+  MapLayerControlComponent,
 } from '../map-arcgis/map-widget'
 
 const MAP_WIDGET = [
@@ -24,6 +25,7 @@ const MAP_WIDGET = [
   MapSearchComponent,
   MapShareComponent,
   MapPopupComponent,
+  MapLayerControlComponent,
 ];
 
 import {
