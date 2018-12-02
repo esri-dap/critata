@@ -1,3 +1,6 @@
+export * from './popup/attachment-gallery/attachment-gallery.component'
+export * from './popup/dialog-imageviewer/dialog-imageviewer.component'
+
 export * from './basemap/basemap.component';
 export * from './laporan/laporan.component';
 export * from './layercontrol/layercontrol.component';

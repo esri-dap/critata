@@ -36,6 +36,36 @@ export class MapStateService {
 		this.listeners_esriMapView.next(mapView);
 	}
 
+	listeners_attachment: Subject<any> = new Subject<any>();
+
+	listen_attachment(): Observable<any> {
+		return this.listeners_attachment.asObservable();
+	}
+
+	store_attachment(attachment: any) {
+		this.listeners_attachment.next(attachment);
+	}
+
+	listeners_attachmentWindow: Subject<any> = new Subject<any>();
+
+	listen_attachmentWindow(): Observable<any> {
+		return this.listeners_attachmentWindow.asObservable();
+	}
+
+	store_attachmentWindow(attachmentWindow: any) {
+		this.listeners_attachmentWindow.next(attachmentWindow);
+	}
+
+	listeners_popupTabs: Subject<any> = new Subject<any>();
+
+	listen_popupTabs(): Observable<any> {
+		return this.listeners_popupTabs.asObservable();
+	}
+
+	store_popupTabs(popupTabs: any) {
+		this.listeners_popupTabs.next(popupTabs);
+	}
+
 	constructor() {}
 
 	/**

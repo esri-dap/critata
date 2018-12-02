@@ -1,0 +1,269 @@
+<div class="container-panel">
+  <div class="panel-content" id="popuppanel">
+    <div class="row">
+      <nb-actions class="actions-popup" size="medium">
+        <nb-action icon="nb-menu"></nb-action>
+        <nb-action icon="nb-search"></nb-action>
+        <nb-action icon="nb-email"></nb-action>
+        <nb-action disabled icon="nb-notifications"></nb-action>
+        <nb-action>
+          <nb-user name="Han Solo"></nb-user>
+        </nb-action>
+        <nb-action icon="nb-gear"></nb-action>
+      </nb-actions>
+    </div>
+    <div class="row">
+      <nb-tabset fullWidth>
+        <nb-tab *ngFor="let featureLayer of _popupData; let i = index" tabIcon="nb-list">
+          <nb-card>
+            <nb-card-header>
+              {{featureLayer.sourceLayer.title}}
+            </nb-card-header>
+          </nb-card>
+          <nb-card class="tab-actions">
+            <nb-actions size="small" fullWidth>
+              <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                <span><b>{{btnAttachment}}</b></span>
+              </nb-action>
+            </nb-actions>
+            <!-- <nb-card-body>
+                    
+                  </nb-card-body> -->
+            <map-popup-gallery [ngClass]="{hide: !gallery}">
+            </map-popup-gallery>
+          </nb-card>
+          <form class="formdata">
+            <div class="form-group row" *ngFor="let attributes of featureLayer.attributes | keyvalue">
+              <!-- <label class="col-sm-3 col-form-label">{{attributes.key}}</label> -->
+              <!-- <label class="col-sm-9 col-form-label label-break">: {{attributes.value}}</label> -->
+              <div class="col-sm-3">
+                <label class="label-break"><b>{{attributes.key}}</b></label>
+              </div>
+              <div class="col-sm-9">
+                <!-- <input class="form-control break" value={{attributes.value}} disabled> -->
+                <label class="label-break">: {{attributes.value}}</label>
+              </div>
+            </div>
+          </form>
+        </nb-tab>
+      </nb-tabset>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container-panel">
+            <div class="panel-content" id="popuppanel">
+              <div class="row">
+                <nb-actions class="actions-popup" size="medium">
+                  <nb-action icon="nb-menu"></nb-action>
+                  <nb-action icon="nb-search"></nb-action>
+                  <nb-action icon="nb-email"></nb-action>
+                  <nb-action disabled icon="nb-notifications"></nb-action>
+                  <nb-action>
+                    <nb-user name="Han Solo"></nb-user>
+                  </nb-action>
+                  <nb-action icon="nb-gear"></nb-action>
+                </nb-actions>
+              </div>
+              <div class="row">
+                <nb-tabset fullWidth>
+                  <nb-tab *ngFor="let featureLayer of _popupData; let i = index" tabIcon="nb-list">
+                      <nb-card>
+                          <nb-card-header>
+                              {{featureLayer.sourceLayer.title}}
+                          </nb-card-header>
+                      </nb-card>
+                    <nb-card class="tab-actions">
+                          <nb-actions size="small" fullWidth>
+                                  <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                                    <span><b>{{btnAttachment}}</b></span>
+                                  </nb-action>
+                                </nb-actions>
+                      <!-- <nb-card-body>
+                        
+                      </nb-card-body> -->
+<map-popup-gallery [ngClass]="{hide: !gallery}">
+</map-popup-gallery>
+</nb-card>
+<form class="formdata">
+  <div class="form-group row" *ngFor="let attributes of featureLayer.attributes | keyvalue">
+    <!-- <label class="col-sm-3 col-form-label">{{attributes.key}}</label> -->
+    <!-- <label class="col-sm-9 col-form-label label-break">: {{attributes.value}}</label> -->
+    <div class="col-sm-3">
+      <label class="label-break"><b>{{attributes.key}}</b></label>
+    </div>
+    <div class="col-sm-9">
+      <!-- <input class="form-control break" value={{attributes.value}} disabled> -->
+      <label class="label-break">: {{attributes.value}}</label>
+    </div>
+  </div>
+</form>
+</nb-tab>
+</nb-tabset>
+</div>
+</div>
+</div> -->
+
+<!-- .container-panel {
+  position: fixed;
+  top: 97px;
+  bottom: 60px;
+  right: 0;
+  height: auto;
+  width: 50vw;
+  z-index: 9999;
+
+  .panel-content {
+    padding: 30px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    font-size: 0.825rem;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    float: left;
+    // align-items: center;
+    // justify-content: center;
+    background-color: nb-theme(popup-color-bg);
+    width: inherit;
+    height: 100%;
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+}
+
+.hide {
+  display: none;
+}
+
+.actions-popup {
+  margin: -30px 0 30px 0;
+  width: inherit;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.tab-actions {
+  cursor: pointer;
+  @include nb-install-component() {
+
+    nb-actions > nb-action {
+      padding: 5px 0 5px 0 ;
+    }
+  
+    nb-action {
+      i {
+        color: nb-theme(color-fg);
+        font-size: 2.5rem;
+        @include nb-ltr(margin-right, 1rem);
+        @include nb-rtl(margin-left, 1rem);
+  
+        @include nb-for-theme(corporate) {
+          color: nb-theme(actions-fg);
+        }
+      }
+  
+      span {
+        font-family: nb-theme(font-secondary);
+        font-weight: nb-theme(font-weight-bold);
+        color: nb-theme(color-fg-heading);
+        text-transform: uppercase;
+      }
+    }
+  
+    @include media-breakpoint-down(md) {
+      nb-actions nb-action {
+        padding: 0 0.75rem;
+      }
+    }
+    @include media-breakpoint-down(sm) {
+      nb-card-body {
+        padding: 1rem;
+      }
+  
+      nb-action {
+        font-size: 0.75rem;
+        padding: 5px 0 5px 0 ;
+        i {
+          font-size: 2rem;
+          @include nb-ltr(margin-right, 0.5rem);
+          @include nb-rtl(margin-left, 0.5rem);
+        }
+      }
+    }
+  
+    @include media-breakpoint-down(is) {
+      nb-action i {
+        font-size: 1.75rem;
+        margin: 0;
+      }
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+.formdata {
+  white-space: nowrap;
+  width: inherit;
+}
+
+.label-break {
+  overflow-wrap: break-word;
+}
+
+// input {
+//   .form-control {
+//     &.break {
+//       overflow-wrap: break-word;
+//     }
+//   }
+// }
+
+@include nb-install-component() {
+  nb-tabset {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nb-tab {
+    padding: nb-theme(padding);
+  }
+
+  /deep/ ngx-tab1, /deep/ ngx-tab2 {
+    display: block;
+    padding: nb-theme(padding);
+  }
+
+  @include media-breakpoint-down(xs) {
+    nb-tabset /deep/ul {
+      font-size: 1rem;
+      padding: 0 0.25rem;
+    }
+  }
+
+  .full-width {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  nb-checkbox {
+    margin-bottom: 1rem;
+  }
+
+  .form-inline > * {
+    @include nb-ltr(margin, 0 1.5rem 1.5rem 0);
+    @include nb-rtl(margin, 0 0 1.5rem 1.5rem);
+  }
+
+  nb-card.inline-form-card nb-card-body {
+    padding-bottom: 0;
+  }
+} -->

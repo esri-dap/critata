@@ -1,4 +1,53 @@
-<div class="container-panel">
-    <div class="panel-content" id="popuppanel">
+<div class="container-popup">
+  <div class="content-popup">
+
+    <div class="panel-contents">
+      <div class="panel-actions">
+        <nb-actions size="small" fullWidth>
+          <nb-action (click)='closePanel()'>
+            <i class="nb-close"></i><span>Tutup Panel</span>
+          </nb-action>
+          <nb-action (click)='makeReport()'>
+            <i class="nb-compose"></i><span>Buat Laporan</span>
+          </nb-action>
+          <nb-action (click)='copyCoordinate()'>
+            <i class="nb-plus-circled"></i><span>Salin Koordinat</span>
+          </nb-action>
+          <nb-action (click)='showLayer()'>
+            <i class="nb-location"></i><span>Lihat di Peta</span>
+          </nb-action>
+
+        </nb-actions>
+        <div class="sepatator-horizontal">
+        </div>
+      </div>
+      <div class="panel-contents-container">
+        <nb-stepper orientation="vertical">
+
+          <nb-step *ngFor="let featureLayer of _popupData; let i = index" label={{featureLayer.sourceLayer.title}}
+            completed>
+            <div class="layer-container">
+              <div class="layer-content" *ngIf="
+              {{featureLayer.sourceLayer.url}} == 'https://tataruang.jakarta.go.id/server/rest/services/dashboard/q_massa_gedungpemda/FeatureServer'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="Deskripsi">
+                    
+                  </nb-tab>
+                  <nb-tab tabTitle="Foto">
+                    <span>Content #2</span>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+              <div class="layer-button">
+                <button nbButton nbStepperPrevious>prev</button>
+                <button nbButton nbStepperNext>next</button>
+              </div>
+            </div>
+          </nb-step>
+        </nb-stepper>
+      </div>
+
     </div>
+  </div>
 </div>

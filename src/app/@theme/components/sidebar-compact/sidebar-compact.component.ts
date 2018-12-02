@@ -27,7 +27,7 @@ export class SidebarCompactComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		if (this.router.url == '/pages/petaExisting') {
+		if (this.router.url == '/pages/petaRuang') {
 			let currentId = document.getElementById('existing');
 			// let menuB = document.getElementById('rencana');
 			let menuC = document.getElementById('threed');
@@ -46,10 +46,10 @@ export class SidebarCompactComponent implements OnInit {
 
 	goToMenu(name: string) {
 		if (name == 'existing') {
-			if (this.router.url == '/pages/petaExisting') {
+			if (this.router.url == '/pages/petaRuang') {
 				// do nothing
 			} else {
-				this.router.navigate([ '/pages/petaExisting' ]);
+				this.router.navigate([ '/pages/petaRuang' ]);
 				let currentId = document.getElementById('existing');
 				// let menuB = document.getElementById('rencana');
 				let menuC = document.getElementById('threed');

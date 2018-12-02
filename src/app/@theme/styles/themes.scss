@@ -104,7 +104,15 @@ $nb-themes: nb-register-theme((
   tooltip-bg: rgba(255,255,255,0.85),
   tooltip-fg: #15161D,
   default-color-bg: rgba(255,255,255,0.85),
+  popup-color-bg: rgba(255,255,255,0.92),
   hover-color-bg: rgba(255,255,255,1),
+
+  stepper-completed-icon-size: 0,
+  stepper-accent-color: #a4abb3,
+  stepper-label-font-size: 0.725rem,
+  stepper-index-size: 1.725rem,
+
+  tabs-font-size: 0.925rem,
 
   sidebar-header-gap: 2rem,
   sidebar-footer-gap: 8vh,
