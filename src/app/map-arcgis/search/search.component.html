@@ -1,7 +1,80 @@
-<nb-search type="rotate-layout" tag="rotate-layout"></nb-search>
-<div class="container-panel">
+<!-- <div class="container-panel">
   <div class="panel-content">
-    <!-- <div id="search"></div> -->
+    <nb-accordion multi>
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Product Details
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+          Originally, nebula was a name for any diffuse astronomical object,
+          including galaxies beyond the Milky Way.
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Reviews
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+          Originally, nebula was a name for any diffuse astronomical object,
+          including galaxies beyond the Milky Way.
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item>
+        <nb-accordion-item-header>
+          Edit
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
+          Originally, nebula was a name for any diffuse astronomical object,
+          including galaxies beyond the Milky Way.
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </div>
+</div> -->
+
+<div class="container-popup">
+  <div class="content-popup">
+
+    <div class="panel-contents">
+      <div class="panel-actions"></div>
+      <div class="panel-contents-container">
+          <nb-accordion multi>
+              <nb-accordion-item expanded>
+                <nb-accordion-item-header>
+                  Batas Subblok Zonasi
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                    <div class="contact" *ngFor="let item of res_batassubblok">
+                        <nb-user [name]="item.attributes.ID_SUBBLOCK_NEW" [title]="item.attributes.SUB_ZONA_D" size="large"></nb-user>
+                        <i class="i-contact nb-location" (click)='goToLocation("item.geometry")'></i>
+                      </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+        
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                  Panduan Rancang Bangun Kota
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+        
+              <nb-accordion-item>
+                <nb-accordion-item-header>
+                    Bangunan Aset Pemda DKI Jakarta
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+            </nb-accordion>
+      </div>
+    </div>
   </div>
 </div>
-

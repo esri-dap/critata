@@ -55,12 +55,16 @@ export class MapSearchComponent implements OnInit {
   res_bangunganasetpemda: any;
   res_lahanasetpemda: any;
 
-  constructor(
-    private mapStateService: MapStateService,
-    private searchService: SearchService,
-    private nbSearchService: NbSearchService
-  ) {
-    this.nbSearchService.onSearchSubmit().subscribe(searchInput => {
+	constructor(
+		private mapStateService: MapStateService,
+		private searchService: SearchService,
+		private nbSearchService: NbSearchService
+	) {
+    this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
+      this._esriMapView = mapView;
+      });
+
+		this.nbSearchService.onSearchSubmit().subscribe((searchInput) => {
       this._searchInput = searchInput.term;
 
       // let params = new HttpParams()
@@ -627,7 +631,6 @@ export class MapSearchComponent implements OnInit {
           });
           this.res_pasar = resCurrent;
         });
-
       this.searchService
         .searchItem(srcSearch.ruanghijau.featureLayer.url)
         .subscribe((data: any) => {
@@ -760,6 +763,16 @@ export class MapSearchComponent implements OnInit {
 
   ngOnInit() {
     // this.initWidget_Search();
+  }
+
+  goToLocation(geometry){
+    this._esriMapView.goTo({
+      target: [
+        geometry["rings"]["0"]["0"]["0"],
+        geometry["rings"]["0"]["0"]["1"],
+      ],
+      zoom: 18
+    });
   }
 
   async initWidget_Search() {
@@ -1028,6 +1041,7 @@ export class MapSearchComponent implements OnInit {
     }
   }
 }
+
 
 // let __searchSource = [
 // 	{
