@@ -113,6 +113,7 @@ $nb-themes: nb-register-theme((
   stepper-index-size: 1.725rem,
 
   tabs-font-size: 0.925rem,
+  tabs-padding: 0 1.25rem 1.25rem 1.25rem,
 
   sidebar-header-gap: 2rem,
   sidebar-footer-gap: 8vh,
@@ -122,6 +123,10 @@ $nb-themes: nb-register-theme((
   layout-padding: 0 0 0 0,
   layout-window-mode-padding-top: 0,
   sidebar-shadow: 0,
+
+  search-bg: rgba(255,255,255,0.95),
+  search-btn-open-fg: #15161D,
+  search-btn-close-fg: #15161D,
 
   // footer
   footer-padding: 0 0 0 0,

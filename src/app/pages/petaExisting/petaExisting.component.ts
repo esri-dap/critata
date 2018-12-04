@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MapStateService } from '../../@core/data/mapstate.service';
 import { MapArcgisModule } from '../../map-arcgis/map-arcgis.module';
 // import { MapLegendComponent } from '../../map-arcgis/legend/legend.component'
+import { SearchService } from '../../@core/data/search.service';
+
+import { NbSearchService } from '@nebular/theme';
 
 @Component({
 	selector: 'app-peta-existing',
@@ -28,8 +31,16 @@ export class PetaExistingComponent implements OnInit {
 
 	panelState: string;
 
-	constructor(private mapStateService: MapStateService) {
+	constructor(
+		private mapStateService: MapStateService,
+		private searchService: SearchService,
+		private nbSearchService: NbSearchService
+	) {
 		this.mapStateService.changeFooterTitle('PETA RUANG JAKARTA');
+		this.nbSearchService.onSearchSubmit().subscribe((data: any) => {
+			// this.value = data.term;
+			console.log('nbSearchService', data);
+		});
 		// this._subcriptionMapCenter = this.mapStateService.execChange_locationpoint.subscribe((value) => {
 		// 	console.log("state-coord", value);
 		// 	this.coordinate = value; // this.username will hold your value and modify it every time it changes
@@ -37,7 +48,7 @@ export class PetaExistingComponent implements OnInit {
 		this._subscriptionPanelState = this.mapStateService.execChange_panelState.subscribe((value) => {
 			this.panelState = value;
 			if (value == 'none') {
-				this.panelshare = false
+				this.panelshare = false;
 				this.panellaporan = false;
 				this.panellegend = false;
 				this.panelmeasure = false;
@@ -45,6 +56,12 @@ export class PetaExistingComponent implements OnInit {
 				this.panelbasemap = false;
 				this.panellayercontrol = false;
 				this.panelpopup = false;
+				// this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
+				// 	mapView.goTo({
+				// 		// center: [],
+				// 		scale: 24000
+				// 	});
+				// });
 			}
 			if (value == 'basemap') {
 				this.panelbasemap = !this.panelbasemap;
@@ -53,7 +70,7 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelshare = false;
-				this.panellayercontrol = false
+				this.panellayercontrol = false;
 				this.panelpopup = false;
 			}
 			if (value == 'laporan') {
@@ -63,7 +80,7 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelshare = false;
-				this.panellayercontrol = false
+				this.panellayercontrol = false;
 				this.panelpopup = false;
 			}
 			if (value == 'legend') {
@@ -73,7 +90,7 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelshare = false;
-				this.panellayercontrol = false
+				this.panellayercontrol = false;
 				this.panelpopup = false;
 			}
 			if (value == 'measure') {
@@ -83,7 +100,7 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = !this.panelmeasure;
 				this.panelsearch = false;
 				this.panelshare = false;
-				this.panellayercontrol = false
+				this.panellayercontrol = false;
 				this.panelpopup = false;
 			}
 			if (value == 'search') {
@@ -93,7 +110,7 @@ export class PetaExistingComponent implements OnInit {
 				this.panelmeasure = false;
 				this.panelsearch = !this.panelsearch;
 				this.panelshare = false;
-				this.panellayercontrol = false
+				this.panellayercontrol = false;
 				this.panelpopup = false;
 			}
 			if (value == 'share') {
@@ -104,17 +121,17 @@ export class PetaExistingComponent implements OnInit {
 				this.panelsearch = false;
 				this.panelbasemap = false;
 				this.panelpopup = false;
-				this.panellayercontrol = false
+				this.panellayercontrol = false;
 				this.panelpopup = false;
 			}
 			if (value == 'layercontrol') {
-				this.panelshare = false
+				this.panelshare = false;
 				this.panellaporan = false;
 				this.panellegend = false;
 				this.panelmeasure = false;
 				this.panelsearch = false;
 				this.panelbasemap = false;
-				this.panellayercontrol = !this.panellayercontrol
+				this.panellayercontrol = !this.panellayercontrol;
 				this.panelpopup = false;
 			}
 			if (value == 'popup') {
@@ -125,10 +142,6 @@ export class PetaExistingComponent implements OnInit {
 				this.panelsearch = false;
 				this.panelshare = false;
 				this.panelpopup = true;
-				// this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
-				// 	this.panelpopup = !this.panelpopup;
-					
-				// });
 			}
 		});
 	}
@@ -145,6 +158,9 @@ export class PetaExistingComponent implements OnInit {
 
 	togglePanel(panel: string) {
 		this.mapStateService.changePanelState(panel);
+		if (panel == "search") {
+			this.nbSearchService.activateSearch('rotate-layout', 'rotate-layout') 
+		}
 	}
 
 	// async initPopup() {
@@ -170,7 +186,7 @@ export class PetaExistingComponent implements OnInit {
 
 	mapLoadedEvent(status: boolean) {
 		console.log('The map loaded: ' + status);
-	  }
+	}
 
 	showPopup() {}
 }

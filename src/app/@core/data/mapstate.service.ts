@@ -66,6 +66,46 @@ export class MapStateService {
 		this.listeners_popupTabs.next(popupTabs);
 	}
 
+	listeners_mapScale: Subject<any> = new Subject<any>();
+
+	listen_mapScale(): Observable<any> {
+		return this.listeners_mapScale.asObservable();
+	}
+
+	store_mapScale(mapScale: any) {
+		this.listeners_mapScale.next(mapScale);
+	}
+
+	listeners_coordinates: Subject<any> = new Subject<any>();
+
+	listen_coordinates(): Observable<any> {
+		return this.listeners_coordinates.asObservable();
+	}
+
+	store_coordinates(coordinates: any) {
+		this.listeners_coordinates.next(coordinates);
+	}
+
+	listeners_searchInput: Subject<any> = new Subject<any>();
+
+	listen_searchInput(): Observable<any> {
+		return this.listeners_searchInput.asObservable();
+	}
+
+	store_searchInput(searchInput: any) {
+		this.listeners_searchInput.next(searchInput);
+	}
+
+	listeners_searchResult: Subject<any> = new Subject<any>();
+
+	listen_searchResult(): Observable<any> {
+		return this.listeners_searchResult.asObservable();
+	}
+
+	store_searchResult(searchResult: any) {
+		this.listeners_searchResult.next(searchResult);
+	}
+
 	constructor() {}
 
 	/**

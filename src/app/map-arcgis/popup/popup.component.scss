@@ -2,99 +2,99 @@
 @import '~bootstrap/scss/mixins/breakpoints';
 @import '~@nebular/theme/styles/global/breakpoints';
 
-@include nb-install-component() {
+// @include nb-install-component() {
 
-  nb-stepper {
+//   nb-stepper {
 
-    &.horizontal {
-      .header .step {
-        width: nb-theme(stepper-index-size);
-        margin: 0 nb-theme(stepper-index-size) / 2;
-      }
+//     &.horizontal {
+//       .header .step {
+//         width: nb-theme(stepper-index-size);
+//         margin: 0 nb-theme(stepper-index-size) / 2;
+//       }
 
-      .header .connector {
-        margin-top: nb-theme(stepper-index-size) / 2;
-      }
-    }
+//       .header .connector {
+//         margin-top: nb-theme(stepper-index-size) / 2;
+//       }
+//     }
 
-    &.vertical {
-      .header .connector {
-        margin: nb-theme(stepper-index-size) / 2;
-      }
-    }
+//     &.vertical {
+//       .header .connector {
+//         margin: nb-theme(stepper-index-size) / 2;
+//       }
+//     }
 
-    .header {
-      .connector {
-        background-color: nb-theme(stepper-fg);
-      }
+//     .header {
+//       .connector {
+//         background-color: nb-theme(stepper-fg);
+//       }
 
-      .connector-past {
-        background-color: nb-theme(stepper-accent-color);
-      }
+//       .connector-past {
+//         background-color: nb-theme(stepper-accent-color);
+//       }
 
-      .label {
-        font-size: nb-theme(stepper-label-font-size);
-        font-weight: nb-theme(stepper-label-font-weight);
-        color: nb-theme(stepper-fg);
-        word-break: break-all;
-        overflow-wrap: break-word;
-      }
+//       .label {
+//         font-size: nb-theme(stepper-label-font-size);
+//         font-weight: nb-theme(stepper-label-font-weight);
+//         color: nb-theme(stepper-fg);
+//         word-break: break-all;
+//         overflow-wrap: break-word;
+//       }
 
-      .label-index {
-        width: nb-theme(stepper-index-size);
-        height: nb-theme(stepper-index-size);
-        border-radius: nb-theme(stepper-index-size) / 2;
-        border: 2px solid nb-theme(stepper-fg);
-        color: nb-theme(stepper-fg);
-        font-weight: nb-theme(stepper-label-font-weight);
-        font-size: nb-theme(stepper-label-font-size);
+//       .label-index {
+//         width: nb-theme(stepper-index-size);
+//         height: nb-theme(stepper-index-size);
+//         border-radius: nb-theme(stepper-index-size) / 2;
+//         border: 2px solid nb-theme(stepper-fg);
+//         color: nb-theme(stepper-fg);
+//         font-weight: nb-theme(stepper-label-font-weight);
+//         font-size: nb-theme(stepper-label-font-size);
 
-        .icon {
-          font-size: nb-theme(stepper-completed-icon-size);
-          font-weight: nb-theme(stepper-completed-icon-weight);
-        }
-      }
+//         .icon {
+//           font-size: nb-theme(stepper-completed-icon-size);
+//           font-weight: nb-theme(stepper-completed-icon-weight);
+//         }
+//       }
 
-      .step {
+//       .step {
 
-        &.selected {
+//         &.selected {
           
-          .label-index {
-            border: 2px solid nb-theme(stepper-accent-color);
-            color: nb-theme(stepper-accent-color);
-          }
-          .label {
-            color: nb-theme(stepper-accent-color);
-          }
+//           .label-index {
+//             border: 2px solid nb-theme(stepper-accent-color);
+//             color: nb-theme(stepper-accent-color);
+//           }
+//           .label {
+//             color: nb-theme(stepper-accent-color);
+//           }
 
-          // &.ng-star-inserted {
-          //   width: 10px;
-          // }
-        }
+//           // &.ng-star-inserted {
+//           //   width: 10px;
+//           // }
+//         }
 
-        &.completed {
+//         &.completed {
           
-          .label-index {
-            background-color: nb-theme(stepper-accent-color);
-            border: 2px solid nb-theme(stepper-accent-color);
-            color: nb-theme(stepper-completed-fg);
-          }
-          .label {
-            color: nb-theme(stepper-accent-color);
-          }
+//           .label-index {
+//             background-color: nb-theme(stepper-accent-color);
+//             border: 2px solid nb-theme(stepper-accent-color);
+//             color: nb-theme(stepper-completed-fg);
+//           }
+//           .label {
+//             color: nb-theme(stepper-accent-color);
+//           }
 
-          // &.ng-star-inserted {
-          //   width: 10px;
-          // }
-        }
-      }
-    }
+//           // &.ng-star-inserted {
+//           //   width: 10px;
+//           // }
+//         }
+//       }
+//     }
 
-    .step-content {
-      padding: nb-theme(stepper-step-padding);
-    }
-  }
-}
+//     .step-content {
+//       padding: nb-theme(stepper-step-padding);
+//     }
+//   }
+// }
 
 i {
   font-size: 2rem;
@@ -179,15 +179,145 @@ nb-action {
 }
 
 .layer-content {
-  width: 100%;
+  width: inherit;
   height: 100%;
 }
+
+// nb-tabset {
+//   padding-top: -1.25rem;
+// }
 
 .layer-button {
   width: 100%;
   height: 50px;
 }
 
+.container-deskripsi {
+  width: 100%;
+  max-height: 402px;
+  height: 402px; 
+  white-space: nowrap;
+  overflow-wrap: break-word;
+  overflow-x: 0;
+  overflow-y: scroll;
+}
+
+
+table {
+  margin-top: 20px; 
+  width: 100%;
+  height: auto; 
+  white-space: nowrap;
+  overflow-wrap: break-word;
+  overflow-x: 0;
+  overflow-y: scroll;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+p {
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: normal;
+  word-wrap: break-word;
+  padding-right: 30px;
+}
+
+tr {
+  margin-bottom: 5px;
+}
+
+td {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+// form {
+//   width: 100%;
+//   height: 100%; 
+//   white-space: nowrap;
+//   overflow-wrap: break-word;
+//   overflow-x: 0;
+//   overflow-y: scroll;
+// }
+
+.container-foto {
+  max-width: 410.06px;
+  width: 100%;
+  height: 100%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center
+}
+
+.hide {
+  display: none;
+}
+
+.tab-actions {
+  margin-top: 20px;
+  width: 400px;
+  cursor: pointer;
+  @include nb-install-component() {
+
+    nb-actions > nb-action {
+      padding: 5px 0 5px 0 ;
+    }
+  
+    nb-action {
+      i {
+        color: nb-theme(color-fg);
+        font-size: 2.5rem;
+        @include nb-ltr(margin-right, 1rem);
+        @include nb-rtl(margin-left, 1rem);
+  
+        @include nb-for-theme(corporate) {
+          color: nb-theme(actions-fg);
+        }
+      }
+  
+      span {
+        font-family: nb-theme(font-secondary);
+        font-weight: nb-theme(font-weight-bold);
+        color: nb-theme(color-fg-heading);
+        text-transform: uppercase;
+      }
+    }
+  
+    @include media-breakpoint-down(md) {
+      nb-actions nb-action {
+        padding: 0 0.75rem;
+      }
+    }
+    @include media-breakpoint-down(sm) {
+      nb-card-body {
+        padding: 1rem;
+      }
+  
+      nb-action {
+        font-size: 0.75rem;
+        padding: 5px 0 5px 0 ;
+        i {
+          font-size: 2rem;
+          @include nb-ltr(margin-right, 0.5rem);
+          @include nb-rtl(margin-left, 0.5rem);
+        }
+      }
+    }
+  
+    @include media-breakpoint-down(is) {
+      nb-action i {
+        font-size: 1.75rem;
+        margin: 0;
+      }
+      span {
+        display: none;
+      }
+    }
+  }
+}
 
 
 

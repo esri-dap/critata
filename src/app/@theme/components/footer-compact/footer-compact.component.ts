@@ -9,7 +9,7 @@ import { ClipboardService } from 'ngx-clipboard'
 	template: `
   <div class="footer-compact">
 
-  <span class="created-by">Long: {{longitude}}&nbsp;&nbsp;Lat: {{latitude}}</span>
+  <span class="created-by">Lat: {{longitude}}&nbsp;&nbsp;Long: {{latitude}}</span>
   <span class="footer-title-text"><b>{{footerTitle}}</b></span>
   <div>
     <span class="footer-logo-text">POWERED BY</span>
@@ -34,8 +34,8 @@ export class FooterCompactComponent {
 			this.footerTitle = value; 
     });
     this._subscriptionCoordinates = this.mapStateService.execChange_locationpoint.subscribe((value) => {
-      this.latitude = value[1]; 
-      this.longitude = value[0];
+      this.longitude = value[1]; 
+      this.latitude = value[0];
 		});
   }
 

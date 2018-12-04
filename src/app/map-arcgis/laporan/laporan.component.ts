@@ -1,4 +1,6 @@
-import { Component,  } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
+
+import { MapStateService } from "../../@core/data/mapstate.service";
 
 @Component({
   selector: 'map-laporan',
@@ -6,6 +8,20 @@ import { Component,  } from '@angular/core';
   templateUrl: './laporan.component.html',
 })
 
-export class MapLaporanComponent {
-   
+export class MapLaporanComponent implements OnInit {
+
+  constructor(private mapStateService: MapStateService) {
+  }
+
+   ngOnInit() {
+
+   }
+
+   loadLaporanModule() {
+    this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
+
+    
+
+    });
+   }
 }

@@ -5,16 +5,16 @@
       <div class="panel-actions">
         <nb-actions size="small" fullWidth>
           <nb-action (click)='closePanel()'>
-            <i class="nb-close"></i><span>Tutup Panel</span>
+            <i class="nb-close"></i> <span>Tutup Panel</span>
           </nb-action>
           <nb-action (click)='makeReport()'>
-            <i class="nb-compose"></i><span>Buat Laporan</span>
+            <i class="nb-compose"></i> <span>Buat Laporan</span>
           </nb-action>
           <nb-action (click)='copyCoordinate()'>
-            <i class="nb-plus-circled"></i><span>Salin Koordinat</span>
+            <i class="nb-plus-circled"></i> <span>Salin Koordinat</span>
           </nb-action>
           <nb-action (click)='showLayer()'>
-            <i class="nb-location"></i><span>Lihat di Peta</span>
+            <i class="nb-location"></i> <span>Lihat di Peta</span>
           </nb-action>
 
         </nb-actions>
@@ -22,27 +22,1217 @@
         </div>
       </div>
       <div class="panel-contents-container">
-        <nb-stepper orientation="vertical">
+        <nb-stepper orientation="vertical" fullWidth>
 
           <nb-step *ngFor="let featureLayer of _popupData; let i = index" label={{featureLayer.sourceLayer.title}}
             completed>
             <div class="layer-container">
+
               <div class="layer-content" *ngIf="
-              {{featureLayer.sourceLayer.url}} == 'https://tataruang.jakarta.go.id/server/rest/services/dashboard/q_massa_gedungpemda/FeatureServer'
+              featureLayer.sourceLayer.url == 'https://tataruang.jakarta.go.id/server/rest/services/dashboard/q_massa_gedungpemda/FeatureServer'
               ">
                 <nb-tabset fullWidth>
-                  <nb-tab tabTitle="Deskripsi">
-                    
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Tahun Dibangun</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.TAHUN}} </td>
+                          </tr>
+                          <tr>
+                            <td>Tingkat Bangunan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.JUMLAHLAPIS}} Tingkat</td>
+                          </tr>
+                          <tr>
+                            <td>Kecukupan Ruang</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KECUKUPANRUANG}} </td>
+                          </tr>
+                          <tr>
+                            <td>Sarana Difabel (Ramp)</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.RAMP}} </td>
+                          </tr>
+                          <tr>
+                            <td>Sarana Difabel (Toilet) </td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.TOILET}} </td>
+                          </tr>
+                          <tr>
+                            <td>Sumber Air</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KONSUMSIAIR}} </td>
+                          </tr>
+                          <tr>
+                            <td>Pemanfaatan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KETPEMANFAATAN}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </nb-tab>
-                  <nb-tab tabTitle="Foto">
-                    <span>Content #2</span>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
                   </nb-tab>
                 </nb-tabset>
               </div>
-              <div class="layer-button">
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/cagarbudaya/MapServer'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Nama</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.NAME}} </td>
+                          </tr>
+                          <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.ALAMAT___L}}</td>
+                          </tr>
+                          <tr>
+                            <td>Jenis Cagar Budaya</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.JENIS_CAGA}} </td>
+                          </tr>
+                          <tr>
+                            <td>Keterangan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KETERANGAN}} </td>
+                          </tr>
+                          <tr>
+                            <td>Surat Keputusan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.SK_KETETAP}} </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://tataruang.jakarta.go.id/server/rest/services/DCKTRP/dkctrp_pendataan_bangunan_verifikator/FeatureServer'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Nama Bangunan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.NAMA_BANGUNAN}} </td>
+                          </tr>
+                          <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.LOKASI}}</td>
+                          </tr>
+                          <tr>
+                            <td>Wilayah</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KELURAHAN}}, {{featureLayer.attributes.KECAMATAN}},
+                              {{featureLayer.attributes.WILAYAH}}</td>
+                          </tr>
+                          <br />
+                          <br />
+                          <tr>
+                            <td>Tingkat Bangunan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.LAPIS}} Tingkat</td>
+                          </tr>
+                          <tr>
+                            <td>Penggunaan Bangunan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KEGIATAN}} </td>
+                          </tr>
+                          <tr>
+                            <td>Jenis Bangunan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.JENIS_BANGUNAN}} </td>
+                          </tr>
+                          <tr>
+                            <td>Nama Pengelola</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.PENGELOLA_NAMA}} </td>
+                          </tr>
+                          <tr>
+                            <td>Penggunaan Bangunan</td>
+                            <td>:</td>
+                            <td>Telp: {{featureLayer.attributes.PENGELOLA_TLP}}, Email:
+                              {{featureLayer.attributes.EMAIL}} </td>
+                          </tr>
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://tataruang.jakarta.go.id/server/rest/services/dashboard/js_subblock_dashboard/FeatureServer'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>ID SubBlok</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.ID_SUBBLOCK_NEW}} </td>
+                          </tr>
+                          <tr>
+                            <td>Luas SubBlok</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.LUAS_SUBBLOCK}}</td>
+                          </tr>
+                          <tr>
+                            <td>Wilayah</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KELURAHAN}}, {{featureLayer.attributes.KECAMATAN}}
+                            </td>
+                          </tr>
+                          <br />
+                          <br />
+                          <tr>
+                            <td>Sub Zona</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.SUB_ZONA_D}} </td>
+                          </tr>
+                          <tr>
+                            <td>Zona</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.ZONA_1}}</td>
+                          </tr>
+                          <tr>
+                            <td>Konservasi Air Tanah Kedalaman</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KEDALAMAN_40140}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Kategori Zona</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.AIR_TANAH_40140}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Keterangan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KETERANGAN_40140}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Penggunaan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.PENGGUNAAN_40140}}
+                            </td>
+                          </tr>
+                          <br />
+                          <tr>
+                            <td>Konservasi Air Tanah Kedalaman</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KEDALAMAN}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Kategori Zona</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.AIR_TANAH}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Keterangan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KETERANGAN}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Penggunaan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.PENGGUNAAN}}
+                            </td>
+                          </tr>
+                          <br />
+                          <br />
+
+                          <tr>
+                            <td>Kawasan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KAWASAN}}</td>
+                          </tr>
+                          <tr>
+                            <td>Sub Zona</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.SUB_ZONA_D}}<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Zona</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.ZONA_1}}<br /></td>
+                          </tr>
+                          <tr>
+                            <td>KDB</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KDB}}</td>
+                          </tr>
+                          <tr>
+                            <td>KLB</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KLB}}</td>
+                          </tr>
+                          <tr>
+                            <td>KB</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KB}}</td>
+                          </tr>
+                          <tr>
+                            <td>KDH</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KDH}}</td>
+                          </tr>
+                          <tr>
+                            <td>KTB</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KTB}}</td>
+                          </tr>
+                          <tr>
+                            <td>Tipe</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.TIPE}}</td>
+                          </tr>
+                          <tr>
+                            <td>PSL</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.PSL_1}}</td>
+                          </tr>
+                          <tr>
+                            <td>TPZ</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.CD_TPZ}}</td>
+                          </tr>
+                          <tr>
+                            <td>Bangunan Diizinkan<br /></td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.DIIZINKAN}}<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Bangunan Bersayarat<br /></td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.BERSYARAT}}</td>
+                          </tr>
+                          <tr>
+                            <td>Bangunan Terbatas<br /></td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.TERBATAS}}</td>
+                          </tr>
+                          <tr>
+                            <td>Bangunan Terbatas Bersyarat<br /></td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.TERBATAS_B}}</td>
+                          </tr>
+
+                          <br />
+                          <br />
+
+                          <tr>
+                            <td color="#b22222"><b>Statistik Pendataan Dasawisma TP-PKK</b><br /></td>
+                            <td></td>
+                            <td><br /></td>
+                          </tr>
+                          <tr>
+                            <td color="#0000cd"><b><u>Komponen
+                                </u></b></td>
+                            <td color="#0000cd"><b><u>
+                                  Nilai
+                                </u></b></td>
+                            <td color="#0000cd"><b><u>
+                                  Satuan
+                                </u></b><br /></td>
+                          </tr>
+
+
+                          <tr>
+                            <td>Jumlah Hunian / Rumah Tinggal</td>
+                            <td>{{featureLayer.attributes.USER_DASAWISM_1}}</td>
+                            <td>hunian</td>
+                          </tr>
+                          <tr>
+                            <td>Layak Huni</td>
+                            <td>{{featureLayer.attributes.USER_KONDISI_BANGUNAN_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+
+                          <tr>
+                            <td>Penerangan Baik</td>
+                            <td>{{featureLayer.attributes.USER_PENERANGAN_RUMAH_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Memiliki Jamban</td>
+                            <td>{{featureLayer.attributes.USER_JAMBAN_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Total Jumlah Jamban</td>
+                            <td>{{featureLayer.attributes.USER_JML_JAMBAN}}</td>
+                            <td>jamban<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Memiliki Saluran Pembuangan Air</td>
+                            <td>{{featureLayer.attributes.USER_PAL_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Memiliki Resapan Biopori<br /></td>
+                            <td>{{featureLayer.attributes.USER_RESAPAN_BIOPORI_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Total Jumlah Resapan Biopori</td>
+                            <td>{{featureLayer.attributes.USER_JML_BIOPORI}}</td>
+                            <td>biopori</td>
+                          </tr>
+                          <tr>
+                            <td>Sumber Air PDAM</td>
+                            <td>{{featureLayer.attributes.USER_PDAM_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Sumber Air Sumur Air Tanah</td>
+                            <td>{{featureLayer.attributes.USER_SUMUR_AIR_TANAH_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Memiliki Sertitikat</td>
+                            <td>{{featureLayer.attributes.USER_SERTIFIKAT_RUMAH_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+
+                          <tr>
+                            <td>Sertifikat SHM</td>
+                            <td>{{featureLayer.attributes.USER_SHM_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Sertifikat HGB<br /></td>
+                            <td>{{featureLayer.attributes.USER_HGB_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Sertifikat AJB<br /></td>
+                            <td>{{featureLayer.attributes.USER_AJB_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Sertifikat GIRIK<br /></td>
+                            <td>{{featureLayer.attributes.USER_GIRIK_NUMBER}}<br /></td>
+                            <td>hunian<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Sertifikat Lain<br /></td>
+                            <td>{{featureLayer.attributes.USER_SERTIFIKATLAIN_NUMBER}}</td>
+                            <td>hunian<br /></td>
+                          </tr>
+
+                          <br />
+                          <br />
+
+                          <tr>
+                            <td color="#b22222"><b>
+                                Statistik Aset
+                              </b><br /></td>
+                            <td></td>
+                            <td><br /></td>
+                          </tr>
+                          <tr>
+                            <td color="#0000cd"><b><u>
+                                  Komponen
+                                </u></b></td>
+                            <td color="#0000cd"><b><u>
+                                  Nilai
+                                </u></b></td>
+                            <td color="#0000cd"><b><u>
+                                  Satuan
+                                </u></b><br /></td>
+                          </tr>
+
+
+                          <tr>
+                            <td>Jumlah Aset RTH Pemerintah</td>
+                            <td>{{featureLayer.attributes.JML_BIDANGASETRTH}}</td>
+                            <td>bidang<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Total Aset RTH Pemerintah</td>
+                            <td>{{featureLayer.attributes.SUM_AREA}}</td>
+                            <td>m2<br /></td>
+                          </tr>
+
+                          <br />
+                          <br />
+
+                          <tr>
+                            <td color="#b22222"><b>
+                                Statistik Pajak
+                              </b><br /></td>
+                            <td width="20%"></td>
+                            <td width="10%"><br /></td>
+                          </tr>
+                          <tr>
+                            <td color="#0000cd"><b><u>
+                                  Komponen
+                                </u></b></td>
+                            <td><b><u>
+                                  Nilai
+                                </u></b></td>
+                            <td><b><u>
+                                  Satuan
+                                </u></b><br /></td>
+                          </tr>
+
+                          <tr>
+                            <td>Jumlah Sumur Air Tanah</td>
+                            <td>{{featureLayer.attributes.JML_SUMURAIRTANAH}}</td>
+                            <td>sumur<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Jumlah Persil PBB / NOP</td>
+                            <td>{{featureLayer.attributes.JML_PERSIL_NOP}}</td>
+                            <td>bidang<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Luas Persil PBB / NOP</td>
+                            <td>{{featureLayer.attributes.LUAS_PERSIL_NOP}}</td>
+                            <td>m2<br /></td>
+                          </tr>
+
+                          <br />
+                          <br />
+
+                          <tr>
+                            <td color="#b22222"><b>
+                                Statistik Tata Ruang, Lingkungan Hidup dan Perizinan
+                              </b><br /></td>
+                            <td></td>
+                            <td><br /></td>
+                          </tr>
+                          <tr>
+                            <td color="#0000cd"><b><u>
+                                  Komponen
+                                </u></b></td>
+                            <td><b><u>
+                                  Nilai
+                                </u></b></td>
+                            <td><b><u>
+                                  Satuan
+                                </u></b><br /></td>
+                          </tr>
+
+
+                          <tr>
+                            <td>Jumlah Pengawasan Bangunan Konstruksi</td>
+                            <td>{{featureLayer.attributes.JML_PATROLI_BANGUNAN}}<br /></td>
+                            <td>bangunan<br /></td>
+                          </tr>
+
+
+                          <tr>
+                            <td>Jumlah Bangunan Cagar Budaya</td>
+                            <td>{{featureLayer.attributes.JML_CAGAR_BUDAYA}}</td>
+                            <td>bangunan<br /></td>
+                          </tr>
+
+                          <br />
+                          <br />
+
+                          <tr>
+                            <td color="#b22222"><b>
+                                Statistik Bangunan dan Pertanahan
+                              </b><br /></td>
+                            <td width="20%"></td>
+                            <td width="10%"><br /></td>
+                          </tr>
+                          <tr>
+                            <td color="#0000cd"><b><u>
+                                  Komponen
+                                </u></b></td>
+                            <td><b><u>
+                                  Nilai
+                                </u></b></td>
+                            <td><b><u>
+                                  Satuan
+                                </u></b><br /></td>
+                          </tr>
+                          <tr>
+                            <td>Jumlah Bangunan</td>
+                            <td>{{featureLayer.attributes.JML_BANGUNAN}}</td>
+                            <td>bangunan<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Total Luas Tapak Bangunan</td>
+                            <td>{{featureLayer.attributes.LUAS_BANGUNAN}}<br /></td>
+                            <td>m2<br /></td>
+                          </tr>
+
+
+                          <tr>
+                            <td>Jumlah Bidang BPN</td>
+                            <td>{{featureLayer.attributes.JML_LAHAN_BPN}}<br /></td>
+                            <td>bidang<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Total Luas Bidang BPN</td>
+                            <td>{{featureLayer.attributes.SUM_AREA_1}}</td>
+                            <td>m2<br /></td>
+                          </tr>
+
+                          <br />
+                          <br />
+
+                        </tbody>
+                      </table>
+                      <p>Keterangan</p>
+                      <br />
+                      <p>Informasi Luasan Bangunan atau Luasan Lahan dapat
+                        melebihi Luasan Subblock Tata
+                        Ruang jika bangunan atau lahan dimaksud melintasi lebih dari satu Subblock Tata Ruang;</p>
+                      <br />
+                      <p>Statistik Hunian berdasarkan pendataan Dasawisma Tahun 2018 yang tercantum adalah
+                        pendekatan spasial dari data
+                        tabular Dasawisma dengan metode Geocoding pada Subblock Tata Ruang sehingga terdapat
+                        perbedaan jumlah dengan data
+                        tabular yang tersedia pada Informasi Dasawisma berdasarkan RW.</p>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://tataruang.jakarta.go.id/server/rest/services/dsda/DSDA_peta_Rawan_Banjir/FeatureServer'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Lokasi</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.NAMA_LOKAS}} </td>
+                          </tr>
+
+                          <tr>
+                            <td>Wilayah</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.WADMKD}}, {{featureLayer.attributes.WADMKC}},
+                              {{featureLayer.attributes.WADMKK}}</td>
+                          </tr>
+                          <br />
+                          <br />
+
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://tataruang.jakarta.go.id/server/rest/services/dashboard/q_kawasan_gedung_pemda/FeatureServer'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Nama Bangunan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.NAMA_BANGUNAN}} </td>
+                          </tr>
+
+
+                          <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.ALAMAT}}, {{featureLayer.attributes.KELURAHAN}},
+                              {{featureLayer.attributes.KECAMATAN}}, {{featureLayer.attributes.KOTA}}</td>
+                          </tr>
+                          <br />
+                          <br />
+
+                          <tr>
+                            <td>Pemegang KIB C</td>
+                            <td>:</td>
+
+                            <td>{{featureLayer.attributes.PEMEGANG_KIBC}}<br /></td>
+                          </tr>
+                          <tr>
+                            <td>Pemanfaatan<br /></td>
+                            <td>:</td>
+                            <td>
+                            {{featureLayer.attributes.PEMANFAATAN_GEDUNG}}<br /></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://tataruang.jakarta.go.id/server/rest/services/dashboard/persil_pbb_gabungan_jakarta_dashboard/FeatureServer'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Pembayaran PBB</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.STATUS}} </td>
+                          </tr>
+
+                          <tr>
+                            <td>Wilayah</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KELURAHAN}}, {{featureLayer.attributes.KECAMATAN}}</td>
+                          </tr>
+                          <br />
+                          <br />
+
+
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/pasardanperbelanjaan/FeatureServer/1'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Nama Pasar</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.NAMA_PASAR}} </td>
+                          </tr>
+
+                          <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.ALAMAT}}, {{featureLayer.attributes.KOTA}}</td>
+                          </tr>
+                          <br />
+                          <br />
+
+                          <tr>
+                            <td>Jenis Jualan</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.JENIS_JUALAN}} </td>
+                          </tr>
+
+                          <tr>
+                            <td>Hubungi</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.TELEPON_KANTOR}}, {{featureLayer.attributes.NO_TELP}}</td>
+                          </tr>
+                          <br />
+                          <br />
+
+
+
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/pasardanperbelanjaan/FeatureServer/0'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Nama Pasar</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.NAME}} </td>
+                          </tr>
+                          <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.ADDRESS}}</td>
+                          </tr>
+                          <br />
+                          <br />
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://jakartasatu.jakarta.go.id/server/rest/services/JakartaSatu/model_gab_rth/FeatureServer'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Nama</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.NAMA}}, {{featureLayer.attributes.JENIS_OBJECT}}</td>
+                          </tr>
+
+                          <tr>
+                            <td>Alamat</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.ALAMAT}}, {{featureLayer.attributes.KELURAHAN}},
+                              {{featureLayer.attributes.KECAMATAN}}, {{featureLayer.attributes.KOTA}}</td>
+                          </tr>
+                          <br />
+                          <br />
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              <div class="layer-content" *ngIf="
+              featureLayer.sourceLayer.url == 'https://tataruang.jakarta.go.id/server/rest/services/dashboard/peta_batas_rw_vs_statistik/MapServer/0'
+              ">
+                <nb-tabset fullWidth>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Deskripsi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-deskripsi">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td>Keluraha</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.KEL_NAME}}</td>
+                          </tr>
+
+                          <tr>
+                            <td>RW</td>
+                            <td>:</td>
+                            <td>{{featureLayer.attributes.RW}}</td>
+                          </tr>
+                          <br />
+                          <br />
+
+                          <tr>
+                              <th style="text-align: left;"><b>Statistik</b></th>
+                              <th style="text-align: left;"><b>RW</b></th>
+                              <th style="text-align: left;"><b>Kelurahan</b></th>
+                              <th style="text-align: left;"><b>Kecamatan</b></th>
+                              <th style="text-align: left;"><b>Wilayah</b></th>
+                              <th style="text-align: left;"><b>Provinsi</b></th>
+                            </tr>
+                            <tr>
+                              <td><br />Jumlah Penduduk<br />(Dasawisma)</td>
+                              <td>{{featureLayer/relationships/0/JML_PENDUDUK_RW}}<br /></td>
+                              <td>{{featureLayer/relationships/0/JML_PENDUDUK_KEL}}<br /></td>
+                              <td>{{featureLayer/relationships/0/JML_PENDUDUK_KEC}}<br /></td>
+                              <td>{{featureLayer/relationships/0/JML_PENDUDUK_WIL}}<br /></td>
+                              <td>{{featureLayer/relationships/0/JML_PENDUDUK_PROV}}<br /></td>
+                            </tr>
+                            <tr>
+                                <td><br />Jumlah Keluarga (Dasawisma)</td>
+                                <td>{{featureLayer/relationships/0/JML_KK_RW}}<br /></td>
+                                <td>{{featureLayer/relationships/0/JML_KK_KEL}}<br /></td>
+                                <td>{{featureLayer/relationships/0/JML_KK_KEC}}</td>
+                                <td>{{featureLayer/relationships/0/JML_KK_WIL}}</td>
+                                <td>{{featureLayer/relationships/0/JML_KK_PROV}}</td>
+                              </tr>
+                          
+                          
+                              <tr>
+                                <td><br />Jumlah Hunian</td>
+                                <td>{{featureLayer/relationships/0/JML_HUNIAN_RW}}</td>
+                                <td>{{featureLayer/relationships/0/JML_HUNIAN_KEL}}</td>
+                                <td>{{featureLayer/relationships/0/JML_HUNIAN_KEC}}</td>
+                                <td>{{featureLayer/relationships/0/JML_HUNIAN_WIL}}</td>
+                                <td>{{featureLayer/relationships/0/JML_HUNIAN_PROV}}</td>
+                          
+                              </tr>
+                          
+                              <tr>
+                                <td color="#b22222"><br /><b>
+                                    <u>HASIL PENG-INDEX-AN�</u>  
+                                  </b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                          
+                              </tr>
+                          
+                              <tr>
+                                <td><br /><b>GINI�</b></td>
+                                <td><b>{{featureLayer/relationships/0/GINI_INDEX_RW}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/GINI_INDEX_KEL}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/GINI_INDEX_KEC}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/GINI_INDEX_WIL}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/GINI_INDEX_PROV}}</b></td>
+                          
+                              </tr>
+                          
+                          
+                              <tr>
+                                <td><br /><b>SEW-i</b></td>
+                                <td><b>{{featureLayer/relationships/0/SEWI_INDEX_RW}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/SEWI_INDEX_KEL}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/SEWI_INDEX_KEC}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/SEWI_INDEX_WIL}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/SEWI_INDEX_PROV}}</b></td>
+                          
+                              </tr>
+                              <tr>
+                                <td color="#0000ff"><br /> 
+                                      Economic  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_E_RW}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_E_KEL}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_E_KEC}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_E_WIL}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_E_PROV}}</td>
+                          
+                              </tr>
+                              <tr>
+                                <td color="#0000ff"> 
+                                      <br />Personal  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PE_RW}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PE_KEL}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PE_KEC}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PE_WIL}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PE_PROV}}</td>
+                          
+                              </tr>
+                              <tr>
+                                <td color="#0000ff"> 
+                                      <br />Public  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PU_RW}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PU_KEL}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PU_KEC}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PU_WIL}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_PU_PROV}}</td>
+                          
+                              </tr>
+                              <tr>
+                                <td color="#0000ff"> 
+                                      <br />Communal  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_C_RW}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_C_KEL}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_C_KEC}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_C_WIL}}</td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_C_PROV}}</td>
+                          
+                              </tr>
+                              <tr>
+                                <td><br /><b>SP-i</b></td>
+                                <td><b>{{featureLayer/relationships/0/SPI_RW}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/SPI_KEL}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/SPI_KEC}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/SPI_WIL}}</b></td>
+                                <td><b>{{featureLayer/relationships/0/SPI_PROV}}</b></td>
+                          
+                              </tr>
+                              <tr>
+                                <td color="#0000ff"> <br />
+                                      Basic<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_B_RW}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_B_KEL}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_B_KEC}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_B_WIL}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_B_PROV}}<br />  
+                                   </td>
+                          
+                              </tr>
+                              <tr>
+                                <td color="#0000ff"> 
+                                      <br />Wellbeing<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_W_RW}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_W_KEL}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SWI_C_KEC}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_W_WIL}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_W_PROV}}<br />  
+                                   </td>
+                          
+                              </tr>
+                              <tr>
+                                <td color="#0000ff">
+                                     <br />  Opportunity   
+                                </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_O_RW}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_O_KEL}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_O_KEC}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_O_WIL}}<br />  
+                                   </td>
+                                <td color="#0000ff"> 
+                                      {{featureLayer/relationships/0/SPI_O_PROV}}<br /></td>
+                          
+                              </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </nb-tab>
+                  <nb-tab tabTitle="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                    <div class="container-foto">
+
+                      <nb-card class="tab-actions">
+                        <nb-actions size="small" fullWidth>
+                          <nb-action (click)='showAttachment(featureLayer.sourceLayer.url+"/0/"+featureLayer.attributes.OBJECTID+"/attachments/")'>
+                            <span><b>{{btnAttachment}}</b></span>
+                          </nb-action>
+                        </nb-actions>
+                        <map-popup-gallery [ngClass]="{hide: !gallery}">
+                        </map-popup-gallery>
+                      </nb-card>
+                    </div>
+                  </nb-tab>
+                </nb-tabset>
+              </div>
+
+              
+
+              
+
+              <!-- <div class="layer-button">
                 <button nbButton nbStepperPrevious>prev</button>
                 <button nbButton nbStepperNext>next</button>
-              </div>
+              </div> -->
             </div>
           </nb-step>
         </nb-stepper>
