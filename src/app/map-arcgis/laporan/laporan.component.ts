@@ -14,14 +14,12 @@ export class MapLaporanComponent implements OnInit {
   }
 
    ngOnInit() {
-
+     this.loadLaporanModule();
    }
 
    loadLaporanModule() {
     this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
-
-    
-
+      
     });
    }
 }

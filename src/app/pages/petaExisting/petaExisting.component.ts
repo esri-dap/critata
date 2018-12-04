@@ -159,6 +159,7 @@ export class PetaExistingComponent implements OnInit {
 	togglePanel(panel: string) {
 		this.mapStateService.changePanelState(panel);
 		if (panel == "search") {
+			this.panelsearch = true;
 			this.nbSearchService.activateSearch('rotate-layout', 'rotate-layout') 
 		}
 	}

@@ -14,8 +14,9 @@ import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams } from '@angular
 	templateUrl: './search.component.html'
 })
 export class MapSearchComponent implements OnInit {
-	_searchInput: string;
-
+  _searchInput: string;
+  
+  _esriMapView: any;
 	// _searchSources = [
 	// 	'https://tataruang.jakarta.go.id/server/rest/services/dashboard/q_massa_gedungpemda/FeatureServer/0',
 	// 	'https://jakartasatu.jakarta.go.id/server/rest/services/DCKTRP/cagarbudaya/MapServer/0',
@@ -56,6 +57,10 @@ export class MapSearchComponent implements OnInit {
 		private searchService: SearchService,
 		private nbSearchService: NbSearchService
 	) {
+    this.mapStateService.listen_esriMapView().subscribe((mapView: any) => {
+      this._esriMapView = mapView;
+      });
+
 		this.nbSearchService.onSearchSubmit().subscribe((searchInput) => {
       this._searchInput = searchInput.term;
       
@@ -367,6 +372,8 @@ export class MapSearchComponent implements OnInit {
 					);
         });
         this.res_batassubblok = resCurrent;
+        console.log("this.res_batassubblok", this.res_batassubblok);
+        
 			
 				 
       });
@@ -727,7 +734,21 @@ export class MapSearchComponent implements OnInit {
 
 	ngOnInit() {
 		// this.initWidget_Search();
-	}
+  }
+  
+  goToLocation(geometry){
+    this._esriMapView.goTo({
+      target: [
+        geometry["rings"]["0"]["0"]["0"],
+        geometry["rings"]["0"]["0"]["1"],
+      ],
+      zoom: 18
+    });
+  }
+
+
+
+
 
 	async initWidget_Search() {
 		try {
